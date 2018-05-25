@@ -3,7 +3,7 @@
 \title{
 This function returns all events from the matchs specified in the arguments.}
 \description{
-For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R. Currently, this function only supports one season and one competition at a time. This function can simply be run multiple times for different seasons and competitions and then bound together.}
+For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R. Currently, this function only supports one season and one competition at a time. This function can simply be run multiple times for different seasons and competitions and then bound together. Currently, parallel is only supported for windows.}
 \usage{
 allmatches(username = "username", password = "password",
                       matches$match_id, season_id = "season_id", competition_id = "competition_id", parallel = T)

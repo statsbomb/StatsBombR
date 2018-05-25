@@ -1,1 +1,11 @@
 exportPattern("^[[:alpha:]]+")
+
+import(dplyr)
+import(stringi)
+import(stringr)
+import(tibble)
+import(doParallel)
+import(foreach)
+import(parallel)
+import(httr)
+import(jsonlite)
