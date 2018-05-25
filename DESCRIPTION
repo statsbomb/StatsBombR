@@ -4,8 +4,7 @@ Title: Cleans and pulls StatsBomb data from the API
 Version: 0.1.0
 Author: Derrick Yam
 Maintainer: Derrick Yam <Derrick.Yam@statsbombservices.com>
-Description: This package is used to pull StatsBomb data directly from the API. Currently, this is only supported on Windows computers since pulling functions 
-use parallel computing.
+Description: This package is used to pull StatsBomb data directly from the API. Currently, this is only supported on Windows computers since pulling functions use parallel computing.
 License: 3.5.0
 Encoding: UTF-8
 LazyData: true
