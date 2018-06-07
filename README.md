@@ -8,6 +8,14 @@ This repository is an R package to easily stream StatsBomb data into R using you
 
 This package offers a parallel option to most computationally expensive functions. However, it is currently only supported on Windows.
 
+#Installation Instructions:
+
+1. If not yet installed into R, run: `install.packages("devtools")`
+2. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")
+3. Finally, `library(StatsBombR)`
+
+This package depends on several other packages in order for all functions to run. Therefore, if you have problems with any functions or with installing the package, it is likely due to package dependencies.
+
 # Free Data Instructions:
 
 Welcome to the Free Data Offerings from StatsBomb Services. 
