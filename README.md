@@ -4,11 +4,11 @@
 
 #### Support: support@statsbombservices.com
 
-This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page.
+This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
 This package offers a parallel option to most computationally expensive functions. However, it is currently only supported on Windows.
 
-#Installation Instructions:
+# Installation Instructions:
 
 1. If not yet installed into R, run: `install.packages("devtools")`
 2. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")`
@@ -60,6 +60,8 @@ or, for use in other functions, store it as a data frame object:
 It is important to note, that the argument here is the entire row returns from "FreeMatches", this is because there is information from each match observation that is needed in the `get.matchFree` function.
 
 # API Data Access Instructions:
+
+**API access is for paying customers only**
 
 #### To read in just one game, simply run: 
 
