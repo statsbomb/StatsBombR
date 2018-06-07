@@ -1,4 +1,5 @@
 StatsBombFreeEvents <- function(MatchesDF = "ALL", Parallel = T){
+  print("Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please register your details on https://www.statsbomb.com/resource-centre and read our User Agreement carefully.")
   events.df <- tibble()
 
   if(Parallel == T){

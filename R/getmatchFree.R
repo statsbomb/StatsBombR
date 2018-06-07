@@ -1,4 +1,5 @@
 get.matchFree <- function(Match){
+  print("Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please register your details on https://www.statsbomb.com/resource-centre and read our User Agreement carefully.")
   Events.url <- paste0("https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/",
                        Match$match_id[1], ".json")
   raw.events.api <- GET(url = Events.url)
