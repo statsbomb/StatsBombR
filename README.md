@@ -98,10 +98,11 @@ Please note that additional information is located under type.name == "Goal Keep
 
 Description of these variables:
 
-- Density is calculated as the some of the aggregated inverse distance for each defender behind the ball.
+- Density is calculated as the aggregated inverse distance for each defender behind the ball.
 - Density in the cone is the density filtered for only defenders who are in the cone between the shooter, and each goal post.
 
 # Final Notes:
 
+- Please re-install frequently, as new functions and bug fixes will be added regularly.
 - As always, check out the Rdocumentation for each function (ex. `?StatsBombFreeEvents()`) for more specific description.
 - Please contact [support@statsbombservices.com](support@statsbombservices.com) with bugs and suggestions.
