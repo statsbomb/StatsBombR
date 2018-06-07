@@ -59,10 +59,13 @@ cleanlocations <- function(dataframe){
 
   rest.df <- dataframe %>%
     filter(type.name != "Shot")
-
-  rest.df$shot.end_location.x <- NA
-  rest.df$shot.end_location.y <- NA
-  rest.df$shot.end_location.z <- NA
+  if(dim(rest.df)[1] == 0){
+    rest.df <- tibble()
+  }else{
+    rest.df$shot.end_location.x <- NA
+    rest.df$shot.end_location.y <- NA
+    rest.df$shot.end_location.z <- NA
+  }
 
   data.frame <- bind_rows(shots.df, rest.df) %>%
     arrange(match_id, index)
