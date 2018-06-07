@@ -52,7 +52,7 @@ defensiveinfo <- function(dataframe){
       ff.df <- ff.df %>%
         mutate(distance = sqrt((x - location.x)^2 +
                                  (y - location.y)^2)) %>%
-        mutate(distance = ifelse(distance== 0, 0.0001, distance))
+        mutate(distance = ifelse(distance== 0, 1/3, distance))
 
       ff.df$InCone <- pnt.in.poly(cbind(ff.df$location.x, ff.df$location.y), Cone.df)$pip
 
