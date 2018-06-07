@@ -11,7 +11,7 @@ This package offers a parallel option to most computationally expensive function
 #Installation Instructions:
 
 1. If not yet installed into R, run: `install.packages("devtools")`
-2. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")
+2. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")`
 3. Finally, `library(StatsBombR)`
 
 This package depends on several other packages in order for all functions to run. Therefore, if you have problems with any functions or with installing the package, it is likely due to package dependencies.
