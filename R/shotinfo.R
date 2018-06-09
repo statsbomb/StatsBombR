@@ -1,6 +1,7 @@
 shotinfo <- function(dataframe){
   ##Calculate a distance from shot and distance from center of frame variable
   dataframe <- dataframe %>%
+    mutate(location.x = ifelse(location.x == 120 & location.y == 40, 119.66666, location.x)) %>%
     mutate(DistToGoal = sqrt((location.x - 120)^2 + (location.y - 40)^2),
            DistToKeeper = sqrt((location.x.GK - 120)^2 + (location.y.GK - 40)^2)) %>%
     mutate(AngleToGoal = asin((120-location.x)/DistToGoal)) %>%
