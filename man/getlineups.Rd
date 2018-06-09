@@ -1,11 +1,11 @@
-\name{getmatch}
-\alias{getmatch}
+\name{get.lineups}
+\alias{get.lineups}
 \title{
-This function returns all events for the match specified in the arguments.}
+This function returns all lineups for the match specified in the arguments.}
 \description{
 For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R.}
 \usage{
-get.match(username = "username", password = "password",
+get.lineups(username = "username", password = "password",
                       match_id = "match_id", season_id = "season_id", competition_id = "competition_id")
 }
 %- maybe also 'usage' for other objects documented here.
@@ -45,9 +45,9 @@ get.match(username = "username", password = "password",
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-getmatch(username = username, password = password,
+get.lineups(username = username, password = password,
                       matches.epl$match_id[1], season_id, competition_id)
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
 \keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
+\keyword{Lineups}% __ONLY ONE__ keyword per line

@@ -1,7 +1,7 @@
-\name{allmatches}
-\alias{allmatches}
+\name{alllineups}
+\alias{alllineups}
 \title{
-This function returns all events from the matches specified in the arguments.}
+This function returns all lineups from the matches specified in the arguments.}
 \description{
 For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R. Currently, this function only supports one season and one competition at a time. This function can simply be run multiple times for different seasons and competitions and then bound together. Currently, parallel is only supported for windows.}
 \usage{
@@ -29,7 +29,7 @@ allmatches(username = "username", password = "password",
 \details{
 }
 \value{
-\item{df}{Returns a data frame with all events for the matches specified.}}
+\item{df}{Returns a data frame with all lineups for the matches specified.}}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -47,9 +47,9 @@ allmatches(username = "username", password = "password",
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-allmatches(username = username, password = password,
+alllineups(username = username, password = password,
                       matches.epl$match_id, season_id, competition_id, parallel = T)
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
 \keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
+\keyword{Lineups}% __ONLY ONE__ keyword per line
