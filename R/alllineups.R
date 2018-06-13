@@ -23,6 +23,7 @@ alllineups <- function(username = username, password = password, matches, season
       Events.url <- paste0("https://data.statsbombservices.com/api/v1/lineups/", match_id)
       raw.events.api <- GET(url = Events.url, authenticate(username, password))
       events.string <- rawToChar(raw.events.api$content)
+      Encoding(events.string) <- "UTF-8"
       events <- fromJSON(events.string, flatten = T)
       if(length(events) == 0){
         temp.matches <- temp.matches #Some of the matches in the premier league are not available yet.

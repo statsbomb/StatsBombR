@@ -4,6 +4,7 @@ get.lineupsFree <- function(Match){
                        Match$match_id[1], ".json")
   raw.events.api <- GET(url = Events.url)
   events.string <- rawToChar(raw.events.api$content)
+  Encoding(events.string) <- "UTF-8"
   events <- fromJSON(events.string, flatten = T)
   events <- events %>% mutate(match_id = Match$match_id[1],
                               competition_id = Match$competition.competition_id[1],
