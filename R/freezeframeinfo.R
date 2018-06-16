@@ -57,7 +57,8 @@ freezeframeinfo <- function(dataframe){
       filter(teammate == "TRUE")
     ff.a <- ff.a %>%
       filter(location.x >= x)
-    AttackersBehindBall <- dim(ff.a)[1]
+
+    AttackersBehindBall <- as.numeric(dim(ff.a)[1])
 
     ff.df <- ff.df %>%
       filter(teammate == "FALSE" & position.name != "Goalkeeper")
@@ -65,7 +66,7 @@ freezeframeinfo <- function(dataframe){
     ff.df <- ff.df %>%
       filter(location.x >= x)
 
-    DefendersBehindBall <- dim(ff.df)[1]
+    DefendersBehindBall <- as.numeric(dim(ff.df)[1])
 
 
     if(dim(ff.df)[1] == 0){ ###Defending Information
@@ -186,10 +187,20 @@ freezeframeinfo <- function(dataframe){
            density.incone = as.numeric(map(.$FFinfo, 2)),
            distance.ToD1 = as.numeric(map(.$FFinfo, 3)),
            distance.ToD2 = as.numeric(map(.$FFinfo, 4)),
-           density.A = as.numeric(map(.$FFinfo, 5)),
-           density.incone.A = as.numeric(map(.$FFinfo, 6)),
-           AttackersBehindBall = as.numeric(map(.$FFinfo, 7)),
-           DefendersBehindBall = as.numeric(map(.$FFinfo, 8)))
+           density.A = (map(.$FFinfo, 5)),
+           density.incone.A = (map(.$FFinfo, 6)),
+           AttackersBehindBall = (map(.$FFinfo, 7)),
+           DefendersBehindBall = (map(.$FFinfo, 8)))
+  Shots.FF <- Shots.FF %>%
+    mutate(density.A = map(density.A, 1),
+           density.incone.A = map(density.incone.A, 1),
+           AttackersBehindBall = map(AttackersBehindBall, 1),
+           DefendersBehindBall = map(DefendersBehindBall, 1))
+  Shots.FF <- Shots.FF %>%
+    mutate(density.A = as.numeric(density.A),
+           density.incone.A = as.numeric(density.incone.A),
+           AttackersBehindBall = as.numeric(AttackersBehindBall),
+           DefendersBehindBall = as.numeric(DefendersBehindBall))
 
   Shots.FF <- Shots.FF %>% dplyr::select(density, density.incone, distance.ToD1, distance.ToD2,
                                          density.A, density.incone.A, AttackersBehindBall, DefendersBehindBall)
