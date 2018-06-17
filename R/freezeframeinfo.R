@@ -191,17 +191,6 @@ freezeframeinfo <- function(dataframe){
            density.incone.A = (map(.$FFinfo, 6)),
            AttackersBehindBall = (map(.$FFinfo, 7)),
            DefendersBehindBall = (map(.$FFinfo, 8)))
-  Shots.FF <- Shots.FF %>%
-    mutate(density.A = map(density.A, 1),
-           density.incone.A = map(density.incone.A, 1),
-           AttackersBehindBall = map(AttackersBehindBall, 1),
-           DefendersBehindBall = map(DefendersBehindBall, 1))
-  Shots.FF <- Shots.FF %>%
-    mutate(density.A = as.numeric(density.A),
-           density.incone.A = as.numeric(density.incone.A),
-           AttackersBehindBall = as.numeric(AttackersBehindBall),
-           DefendersBehindBall = as.numeric(DefendersBehindBall))
-
   Shots.FF <- Shots.FF %>% dplyr::select(density, density.incone, distance.ToD1, distance.ToD2,
                                          density.A, density.incone.A, AttackersBehindBall, DefendersBehindBall)
   return(bind_cols(dataframe, Shots.FF))
