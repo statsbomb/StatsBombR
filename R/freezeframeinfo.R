@@ -12,19 +12,9 @@ freezeframeinfo <- function(dataframe){
            new.Dy = (cos(Angle.Rad)*(DistToGoal+1)) ) %>%
     mutate(new.x =  120 - new.Dx,
            new.y =  ifelse(location.y < 40, 40 - new.Dy,
-                           new.Dy + 40)) %>%
-    mutate(new.xF = ifelse((new.x < location.x & new.y < location.y  & location.y <= 40) |
-                             (new.x < location.x & new.y > location.y  & location.y >= 40),
-                           new.x, 120 - new.Dy),
-           new.yF = ifelse((new.x < location.x & new.y < location.y  & location.y <= 40) |
-                             (new.x < location.x & new.y > location.y  & location.y >= 40),
-                           new.y, ifelse(location.y > 40, 40 + new.Dx, 40 - new.Dx)),
-           new.xF = ifelse(AngleToGoal == 90, 120 - (DistToGoal + 1), new.xF),
-           new.yF = ifelse(AngleToGoal == 90, location.y, new.yF))
+                           new.Dy + 40))
 
-
-
-  cleanFF <- function(ff, x, y, new.xF, new.yF){
+  cleanFF <- function(ff, x, y, new.x, new.y){
 
     if(is.null(dim(ff))){
       return(cbind(density = NA,
@@ -49,7 +39,7 @@ freezeframeinfo <- function(dataframe){
     ##Create the cone
     Cone.df <- rbind(c(120, 36 - 1),
                      c(120, 44 + 1),
-                     c(new.xF, new.yF))
+                     c(new.x, new.y))
 
     ff.df$InCone <- pnt.in.poly(cbind(ff.df$location.x, ff.df$location.y), Cone.df)$pip
 
@@ -180,7 +170,7 @@ freezeframeinfo <- function(dataframe){
   } ##End cleanFF function
 
   Shots.FF <- Shots.FF %>%
-    mutate(FFinfo = pmap(list(shot.freeze_frame, location.x, location.y, new.xF, new.yF), cleanFF))
+    mutate(FFinfo = pmap(list(shot.freeze_frame, location.x, location.y, new.x, new.y), cleanFF))
 
   Shots.FF <- Shots.FF %>%
     mutate(density = as.numeric(map(.$FFinfo, 1)),

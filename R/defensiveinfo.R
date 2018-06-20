@@ -14,16 +14,7 @@ defensiveinfo <- function(dataframe){
            new.Dy = (cos(Angle.Rad)*(DistToGoal+1)) ) %>%
     mutate(new.x =  120 - new.Dx,
            new.y =  ifelse(location.y < 40, 40 - new.Dy,
-                           new.Dy + 40)) %>%
-    mutate(new.xF = ifelse((new.x < location.x & new.y < location.y  & location.y <= 40) |
-                             (new.x < location.x & new.y > location.y  & location.y >= 40),
-                           new.x, 120 - new.Dy),
-           new.yF = ifelse((new.x < location.x & new.y < location.y  & location.y <= 40) |
-                             (new.x < location.x & new.y > location.y  & location.y >= 40),
-                           new.y, ifelse(location.y > 40, 40 + new.Dx, 40 - new.Dx)),
-           new.xF = ifelse(AngleToGoal == 90, 120 - (DistToGoal + 1), new.xF),
-           new.yF = ifelse(AngleToGoal == 90, location.y, new.yF))
-
+                           new.Dy + 40))
   cleanFF <- function(ff, x, y, newx, newy){
     element <- ff
     if(is.null(dim(element))){
