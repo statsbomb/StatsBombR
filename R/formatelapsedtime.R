@@ -16,7 +16,11 @@ formatelapsedtime <- function(df){
 
   df <- left_join(df, periods) %>%
     ungroup() %>%
-    mutate(ElapsedTime = endhalf + ElapsedTime) %>%
+    mutate(ElapsedTime = ifelse(period == 1, endhalf + ElapsedTime,
+                                ifelse(period == 2, endhalf + ElapsedTime - (45*60*1000),
+                                       ifelse(period == 3, endhalf + ElapedTime  - (90*60*1000),
+                                              ifelse(period == 4, endhalf + ElapedTime  - (105*60*1000),
+                                                     ifelse(period == 5, endhalf + ElapedTime  - (120*60*1000), NA)))))) %>%
     select(-endhalf, milliseconds)
   return(df)
 }
