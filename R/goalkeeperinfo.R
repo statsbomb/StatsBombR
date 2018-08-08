@@ -2,57 +2,45 @@ goalkeeperinfo <- function(dataframe){
   Shots.FF <- dataframe %>%
     filter(type.name == "Shot") %>%
     dplyr::select(id, shot.freeze_frame)
-  Shots.FF <- as.tibble(Shots.FF)
-  funct.nest <- function(element){
-    if(is.null(dim(element))){
-      return(cbind(player.name.GK = NA,
-                   player.id.GK = NA,
-                   location.x.GK = NA,
-                   location.y.GK = NA))
-    } else
-      ff.df <- element %>%
-        filter(teammate == "FALSE" & position.name == "Goalkeeper")
-    ff.df <- ff.df %>%
-      mutate(location.x = str_extract(location, "[:digit:]+"),
-             location.y = str_extract(location, "[:blank:][:digit:]+")) %>%
-      mutate(location.x = as.numeric(location.x),
-             location.y = as.numeric(location.y))
-    if(dim(ff.df)[1] == 0){
-      return(cbind(player.name.GK = NA,
-                   player.id.GK = NA,
-                   location.x.GK = NA,
-                   location.y.GK = NA))
+  Shots.FF <- as_tibble(Shots.FF)
+
+  ##Trying a different method for the speed.
+  myList <- Shots.FF$shot.freeze_frame
+  fixnull <- function(x) {
+    if(is.data.frame(x)){
+      return(x)
     } else {
-      return(cbind(player.name.GK = ff.df$player.name,
-                   player.id.GK = ff.df$player.id,
-                   location.x.GK = ff.df$location.x,
-                   location.y.GK = ff.df$location.y))
+      return(setNames(data.frame(matrix(ncol = ncol(myList[[1]]), nrow = 1)), names(myList[[1]])))
     }
-
   }
 
-  Shots.FFout <- lapply(Shots.FF$shot.freeze_frame, funct.nest)
+  # Apply the written function above to every element in myList
+  myList <- lapply(myList, fixnull)
 
-  namefunct <- function(element){
-    return(element[1,1])
-  }
-  idfunct <- function(element){
-    return(element[1,2])
-  }
-  xfunct <- function(element){
-    return(element[1,3])
-  }
-  yfunct <- function(element){
-    return(element[1,4])
-  }
+  # "bind_rows" with mynewList
+  df <- bind_rows(myList, .id = "id")
 
-  Shots.FF$player.name.GK <- as.character(lapply(Shots.FFout, namefunct))
-  Shots.FF$player.id.GK <- as.numeric(lapply(Shots.FFout, idfunct))
-  Shots.FF$location.x.GK <- as.numeric(lapply(Shots.FFout, xfunct))
-  Shots.FF$location.y.GK <- as.numeric(lapply(Shots.FFout, yfunct))
+  ##Index Length
+  idtable <- df %>%
+    group_by(id) %>%
+    slice(1) %>%
+    select(id) %>%
+    ungroup() %>%
+    mutate(sbid = Shots.FF$id)
 
-  Shots.FF <- Shots.FF %>% select(-shot.freeze_frame)
-  dataframe <- left_join(dataframe, Shots.FF)
-  return(dataframe)
+  #Join with the freeze frame table
+  df <- left_join(df, idtable)
+  df <- df %>% select(-id) %>% rename(id = sbid) %>% select(id, everything())
 
+  ##calculate the new information
+  df <- df %>%
+    filter(teammate == "FALSE" & position.name == "Goalkeeper") %>%
+    mutate(location.x = str_extract(location, "[:digit:]+"),
+           location.y = str_extract(location, "[:blank:][:digit:]+")) %>%
+    mutate(location.x = as.numeric(location.x),
+           location.y = as.numeric(location.y)) %>%
+    select(id, player.name.GK = player.name, player.id.GK = player.id,
+           location.x.GK = location.x, location.y.GK = location.y)
+
+  dataframe <- left_join(dataframe, df)
 }
