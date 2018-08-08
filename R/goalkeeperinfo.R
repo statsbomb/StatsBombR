@@ -1,11 +1,8 @@
 goalkeeperinfo <- function(dataframe){
-
   Shots.FF <- dataframe %>%
-    dplyr::select(shot.freeze_frame)
-
-  Shots.FF <- as_tibble(Shots.FF)
-  head(Shots.FF)
-
+    filter(type.name == "Shot") %>%
+    dplyr::select(id, shot.freeze_frame)
+  Shots.FF <- as.tibble(Shots.FF)
   funct.nest <- function(element){
     if(is.null(dim(element))){
       return(cbind(player.name.GK = NA,
@@ -13,8 +10,8 @@ goalkeeperinfo <- function(dataframe){
                    location.x.GK = NA,
                    location.y.GK = NA))
     } else
-    ff.df <- element %>%
-      filter(teammate == "FALSE" & position.name == "Goalkeeper")
+      ff.df <- element %>%
+        filter(teammate == "FALSE" & position.name == "Goalkeeper")
     ff.df <- ff.df %>%
       mutate(location.x = str_extract(location, "[:digit:]+"),
              location.y = str_extract(location, "[:blank:][:digit:]+")) %>%
@@ -34,16 +31,28 @@ goalkeeperinfo <- function(dataframe){
 
   }
 
-  Shots.FF <- Shots.FF %>%
-    mutate(gk = map(.$shot.freeze_frame, funct.nest))
+  Shots.FFout <- lapply(Shots.FF$shot.freeze_frame, funct.nest)
 
-  Shots.FF <- Shots.FF %>%
-    mutate(player.name.GK = as.character(map(.$gk, 1)),
-           player.id.GK = as.integer(map(.$gk, 2)),
-           location.x.GK = as.integer(map(.$gk, 3)),
-           location.y.GK = as.integer(map(.$gk, 4)))
+  namefunct <- function(element){
+    return(element[1,1])
+  }
+  idfunct <- function(element){
+    return(element[1,2])
+  }
+  xfunct <- function(element){
+    return(element[1,3])
+  }
+  yfunct <- function(element){
+    return(element[1,4])
+  }
 
-  Shots.FF <- Shots.FF %>% dplyr::select(-shot.freeze_frame, -gk)
-  return(bind_cols(dataframe, Shots.FF))
+  Shots.FF$player.name.GK <- as.character(lapply(Shots.FFout, namefunct))
+  Shots.FF$player.id.GK <- as.numeric(lapply(Shots.FFout, idfunct))
+  Shots.FF$location.x.GK <- as.numeric(lapply(Shots.FFout, xfunct))
+  Shots.FF$location.y.GK <- as.numeric(lapply(Shots.FFout, yfunct))
+
+  Shots.FF <- Shots.FF %>% select(-shot.freeze_frame)
+  dataframe <- left_join(dataframe, Shots.FF)
+  return(dataframe)
 
 }

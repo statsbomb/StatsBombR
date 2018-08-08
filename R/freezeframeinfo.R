@@ -1,5 +1,6 @@
 freezeframeinfo <- function(dataframe){
   Shots.FF <- dataframe %>%
+    filter(type.name == "Shot") %>%
     dplyr::select(shot.freeze_frame, location.x, location.y, DistToGoal, AngleToGoal)
 
   Shots.FF <- as_tibble(Shots.FF)
@@ -172,6 +173,40 @@ freezeframeinfo <- function(dataframe){
   Shots.FF <- Shots.FF %>%
     mutate(FFinfo = pmap(list(shot.freeze_frame, location.x, location.y, new.x, new.y), cleanFF))
 
+  densityfunct <- function(element){
+    return(element[1,1])
+  }
+  densityinfunct <- function(element){
+    return(element[1,2])
+  }
+  distance1funct <- function(element){
+    return(element[1,3])
+  }
+  distance2funct <- function(element){
+    return(element[1,4])
+  }
+  densityAfunct <- function(element){
+    return(element[1,5])
+  }
+  densityAinfunct <- function(element){
+    return(element[1,6])
+  }
+  Abehindfunct <- function(element){
+    return(element[1,7])
+  }
+  Dbehindfunct <- function(element){
+    return(element[1,8])
+  }
+
+  Shots.FF$density <- as.numeric(lapply(Shots.FFout, densityfunct))
+  Shots.FF$density.incone <- as.numeric(lapply(Shots.FFout, densityinfunct))
+  Shots.FF$distance.ToD1 <- as.numeric(lapply(Shots.FFout, distance1funct))
+  Shots.FF$distance.ToD2 <- as.numeric(lapply(Shots.FFout, distance2funct))
+  Shots.FF$density.A <- as.numeric(lapply(Shots.FFout, densityAfunct))
+  Shots.FF$density.incone.A <- as.numeric(lapply(Shots.FFout, densityAinfunct))
+  Shots.FF$AttackersBehindBall <- as.numeric(lapply(Shots.FFout, Abehindfunct))
+  Shots.FF$DefendersBehindBall <- as.numeric(lapply(Shots.FFout, Dbehindfunct))
+
   Shots.FF <- Shots.FF %>%
     mutate(density = as.numeric(map(.$FFinfo, 1)),
            density.incone = as.numeric(map(.$FFinfo, 2)),
@@ -181,8 +216,12 @@ freezeframeinfo <- function(dataframe){
            density.incone.A = (map(.$FFinfo, 6)),
            AttackersBehindBall = (map(.$FFinfo, 7)),
            DefendersBehindBall = (map(.$FFinfo, 8)))
-  Shots.FF <- Shots.FF %>% dplyr::select(density, density.incone, distance.ToD1, distance.ToD2,
+
+
+  Shots.FF <- Shots.FF %>% dplyr::select(id, density, density.incone, distance.ToD1, distance.ToD2,
                                          density.A, density.incone.A, AttackersBehindBall, DefendersBehindBall)
-  return(bind_cols(dataframe, Shots.FF))
+
+  dataframe <- left_join(dataframe, Shots.FF)
+  return(dataframe)
 
 } ##End Freeze Frame Info Function
