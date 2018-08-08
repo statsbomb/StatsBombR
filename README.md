@@ -4,7 +4,7 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated August 8, 2018 many time expensive functions speed up.
+#### Updated August 8, 2018 many time expensive functions sped up.
 
 This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
