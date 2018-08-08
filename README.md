@@ -4,6 +4,8 @@
 
 #### Support: support@statsbombservices.com
 
+#### Updated August 8, 2018 many time expensive functions speed up.
+
 This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
 This package offers a parallel option to most computationally expensive functions. However, it is currently only supported on Windows.
@@ -76,6 +78,10 @@ It is important to note, that the argument here is the entire row returns from "
 
 Although JSON files can often be a pain to clean, especially due to nested data frames, these helper functions may make your data wrangling much easier.
 
+####To clean all of the data at once:
+
+`StatsBombData <- allclean(StatsBombData)`
+
 #### To clean all of the location variables simply run:
 
 `StatsBombData <- cleanlocations(StatsBombData)`
@@ -94,7 +100,7 @@ Please note that additional information is located under type.name == "Goal Keep
 
 #### To extract some information from the freeze frame:
 
-`StatsBombData <- defensiveinfo(StatsBombData)`
+`StatsBombData <- freezeframeinfo(StatsBombData)`
 
 Description of these variables:
 
