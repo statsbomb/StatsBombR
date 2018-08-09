@@ -78,7 +78,7 @@ It is important to note, that the argument here is the entire row returns from "
 
 Although JSON files can often be a pain to clean, especially due to nested data frames, these helper functions may make your data wrangling much easier.
 
-####To clean all of the data at once:
+#### To clean all of the data at once:
 
 `StatsBombData <- allclean(StatsBombData)`
 
