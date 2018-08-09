@@ -5,6 +5,7 @@ get.matches <- function(username, password, season_id, competition_id){
                         "/seasons/", season_id, "/matches")
   raw.match.api <- GET(url = matches.url, authenticate(username, password))
   matches.string <- rawToChar(raw.match.api$content)
+  Encoding(matches.string) <- "UTF-8"
   matches <- fromJSON(matches.string, flatten = T)
   return(matches)
 }
