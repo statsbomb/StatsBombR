@@ -22,3 +22,4 @@ Depends:
   jsonlite (>= 1.5),
   purrr (>= 0.2.4),
   SDMTools (>= 1.1)
+  sp (>= 1.2)
