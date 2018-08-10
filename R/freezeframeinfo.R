@@ -53,11 +53,17 @@ freezeframeinfo <- function(dataframe){
     mutate(location.x = as.numeric(location.x),
            location.y = as.numeric(location.y)) %>%
     mutate(distance = sqrt((x - location.x)^2 + (y - location.y)^2)) %>%
-    mutate(distance = ifelse(distance== 0, 1/3, distance)) %>%
+    mutate(distance = ifelse(distance== 0, 1/3, distance))
+
+  df <- df %>%
+    rowwise() %>%
     mutate(InCone = sp::point.in.polygon(location.x,
                                          location.y,
                                          c(120, 120, new.x),
-                                         c(35, 45, new.y))) %>%
+                                         c(35, 45, new.y)))
+
+  df <- df %>%
+    ungroup() %>%
     mutate(InCone = ifelse(InCone > 0, 1, InCone))
 
   ##Summarise values down for each id
