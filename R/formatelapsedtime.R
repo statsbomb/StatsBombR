@@ -21,6 +21,7 @@ formatelapsedtime <- function(df){
                                        ifelse(period == 3, endhalf + ElapedTime  - (90*60*1000),
                                               ifelse(period == 4, endhalf + ElapedTime  - (105*60*1000),
                                                      ifelse(period == 5, endhalf + ElapedTime  - (120*60*1000), NA)))))) %>%
+    mutate(ElapsedTime = ElapsedTime/1000) %>%
     select(-endhalf, milliseconds)
   return(df)
 }

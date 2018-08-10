@@ -36,6 +36,7 @@ allmatches <- function(username = username, password = password, matches, season
     }
     print(Sys.time()-strt)
   }
+  temp.matches <- temp.matches %>% dplyr::select(-num_range("shot", 1:20))
   return(temp.matches)
 }
 

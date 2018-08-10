@@ -82,6 +82,8 @@ Although JSON files can often be a pain to clean, especially due to nested data 
 
 `StatsBombData <- allclean(StatsBombData)`
 
+This function cleans the data in one line of code by running each of the functions below sequentially.
+
 #### To clean all of the location variables simply run:
 
 `StatsBombData <- cleanlocations(StatsBombData)`
@@ -107,8 +109,17 @@ Description of these variables:
 - Density is calculated as the aggregated inverse distance for each defender behind the ball.
 - Density in the cone is the density filtered for only defenders who are in the cone between the shooter, and each goal post.
 
+#### To format the elapsed time from the start of a match:
+
+`StatsBombData <- formatelapsedtime(StatsBombData)`
+
+#### To add in information about the current possession within a match:
+
+`StatsBombData <- possessioninfo(StatsBombData)`
+
 # Final Notes:
 
+- Some of the cleaning functions above depend on variables created in the functions presented before them. In order to be safe, please clean your data in the order that is presented in this document.
 - Please re-install frequently, as new functions and bug fixes will be added regularly.
 - As always, check out the Rdocumentation for each function (ex. `?StatsBombFreeEvents()`) for more specific description.
 - Please contact [support@statsbombservices.com](support@statsbombservices.com) with bugs and suggestions.

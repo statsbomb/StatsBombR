@@ -1,11 +1,11 @@
-\name{formatelapsedtime}
-\alias{formatelapsedtime}
+\name{possessioninfo}
+\alias{possessioninfo}
 \title{
-This function uses the timestamp and period information to create an elapsed time from the beginning of the match variable.}
+Returns a data frame with all of the original data frame all cleaned for R with extra information added.}
 \description{
-For use with the StatsBomb Data API credentials. After StatsBomb data is read in from the API, JSON file, this function uses the timestamp and period information to create an elapsed time from the beginning of the match variable.}
+For use with the StatsBomb Data API credentials. After StatsBomb data is read in from the API, JSON file, this function will return a data frame all formatted for R with extra information about the current posssession in the game added.}
 \usage{
-formatelapsedtime(dataframe)
+possessioninfo(dataframe)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,7 +16,7 @@ formatelapsedtime(dataframe)
 \details{
 }
 \value{
-\item{df}{Returns a data frame with all of the time information. Elapsed Time presented as time from thestart of the match in seconds.}}
+\item{df}{Returns a data frame with all of the original data frame all cleaned for R with extra information added.}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -34,10 +34,11 @@ formatelapsedtime(dataframe)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-formatelapsedtime(dataframe)
+allclean(dataframe)
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
 \keyword{Match}% __ONLY ONE__ keyword per line
 \keyword{Events}% __ONLY ONE__ keyword per line
-\keyword{Time}% __ONLY ONE__ keyword per line
+\keyword{Clean}% __ONLY ONE__ keyword per line
+\keyword{Possession}% __ONLY ONE__ keyword per line
 
