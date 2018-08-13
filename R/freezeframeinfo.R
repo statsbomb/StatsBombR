@@ -111,6 +111,15 @@ freezeframeinfo <- function(dataframe){
     filter(location.x >= x & teammate == FALSE) %>%
     summarise(DefendersBehindBall = n())
 
+  AttackersInCone <- df %>%
+    group_by(id) %>%
+    filter(location.x >= x & teammate == TRUE & InCone == 1) %>%
+    summarise(AttackersInCone = n())
+  DefendersInCone <- df %>%
+    group_by(id) %>%
+    filter(location.x >= x & teammate == FALSE & InCone == 1) %>%
+    summarise(DefendersInCone = n())
+
   #We need to join these
   Shots.FF <- Shots.FF %>%
     left_join(density) %>%
@@ -120,7 +129,9 @@ freezeframeinfo <- function(dataframe){
     left_join(density.A) %>%
     left_join(density.incone.A) %>%
     left_join(AttackersBehindBall) %>%
-    left_join(DefendersBehindBall)
+    left_join(DefendersBehindBall) %>%
+    left_join(AttackersInCone) %>%
+    left_join(DefendersInCone)
 
   #We need some way of changing the value if everything gets filtered out.
   ##These are easy.
@@ -130,7 +141,9 @@ freezeframeinfo <- function(dataframe){
            density.A = ifelse(is.na(density.A), 0, density.A),
            density.incone.A = ifelse(is.na(density.incone.A), 0, density.incone.A),
            AttackersBehindBall = ifelse(is.na(AttackersBehindBall), 0, AttackersBehindBall),
-           DefendersBehindBall = ifelse(is.na(DefendersBehindBall), 0, DefendersBehindBall))
+           DefendersBehindBall = ifelse(is.na(DefendersBehindBall), 0, DefendersBehindBall),
+           AttackersInCone = ifelse(is.na(AttackersBehindBall), 0, AttackersBehindBall),
+           DefendersInCone = ifelse(is.na(DefendersBehindBall), 0, DefendersBehindBall))
 
   ##The only ones we need to change are the distance metrics.
   posdist1 <- df %>%
@@ -159,7 +172,8 @@ freezeframeinfo <- function(dataframe){
 
 
   Shots.FF <- Shots.FF %>% dplyr::select(id, density, density.incone, distance.ToD1, distance.ToD2,
-                                         density.A, density.incone.A, AttackersBehindBall, DefendersBehindBall)
+                                         density.A, density.incone.A, AttackersBehindBall, DefendersBehindBall,
+                                         AttackersInCone, DefendersInCone)
 
   dataframe <- left_join(dataframe, Shots.FF)
 
