@@ -10,9 +10,10 @@ shotinfo <- function(dataframe){
     mutate(AngleToGoal = AngleToGoal*180/pi) %>%
     mutate(AngleToKeeper = AngleToKeeper*180/pi) %>%
     mutate(AngleDeviation = abs(AngleToGoal-AngleToKeeper)) %>%
-    mutate(duration = ifelse(duration <= 0.1, 0.1, duration)) %>%
-    mutate(maxvelocity = sqrt((shot.end_location.x - location.x)^2 +
-                                (shot.end_location.y - location.y)^2)/duration)
+    #mutate(duration = ifelse(duration <= 0.1, 0.1, duration)) %>%
+    mutate(avevelocity = sqrt((shot.end_location.x - location.x)^2 +
+                                (shot.end_location.y - location.y)^2)/duration) %>%
+    mutate(DistSGK = sqrt((location.x - location.x.GK)^2 + (location.y - location.y.GK)^2))
 
   return(dataframe)
 }
