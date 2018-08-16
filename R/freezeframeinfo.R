@@ -32,6 +32,7 @@ freezeframeinfo <- function(dataframe){
 
   ##Index Length
   idtable <- df %>%
+    mutate(id = as.numeric(id)) %>%
     group_by(id) %>%
     slice(1) %>%
     select(id) %>%
@@ -40,7 +41,8 @@ freezeframeinfo <- function(dataframe){
            x =Shots.FF$location.x,
            y = Shots.FF$location.y,
            new.x = Shots.FF$new.x,
-           new.y = Shots.FF$new.y)
+           new.y = Shots.FF$new.y) %>%
+    mutate(id = as.character(id))
 
   #Join with the freeze frame table
   df <- left_join(df, idtable)

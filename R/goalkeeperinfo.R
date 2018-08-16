@@ -22,11 +22,13 @@ goalkeeperinfo <- function(dataframe){
 
   ##Index Length
   idtable <- df %>%
+    mutate(id = as.numeric(id)) %>%
     group_by(id) %>%
     slice(1) %>%
     select(id) %>%
     ungroup() %>%
-    mutate(sbid = Shots.FF$id)
+    mutate(sbid = Shots.FF$id) %>%
+    mutate(id = as.character(id))
 
   #Join with the freeze frame table
   df <- left_join(df, idtable)
