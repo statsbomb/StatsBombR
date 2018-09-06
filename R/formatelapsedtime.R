@@ -18,9 +18,9 @@ formatelapsedtime <- function(df){
     ungroup() %>%
     mutate(ElapsedTime = ifelse(period == 1, endhalf + ElapsedTime,
                                 ifelse(period == 2, endhalf + ElapsedTime - (45*60*1000),
-                                       ifelse(period == 3, endhalf + ElapedTime  - (90*60*1000),
-                                              ifelse(period == 4, endhalf + ElapedTime  - (105*60*1000),
-                                                     ifelse(period == 5, endhalf + ElapedTime  - (120*60*1000), NA)))))) %>%
+                                       ifelse(period == 3, endhalf + ElapsedTime  - (90*60*1000),
+                                              ifelse(period == 4, endhalf + ElapsedTime  - (105*60*1000),
+                                                     ifelse(period == 5, endhalf + ElapsedTime  - (120*60*1000), NA)))))) %>%
     mutate(ElapsedTime = ElapsedTime/1000) %>%
     select(-endhalf, milliseconds)
   return(df)

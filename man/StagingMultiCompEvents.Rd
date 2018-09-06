@@ -1,11 +1,11 @@
-\name{MultiCompEvents}
-\alias{MultiCompEvents}
+\name{StagingMultiCompEvents}
+\alias{StagingMultiCompEvents}
 \title{
 This function returns all events from the competitions and seasons specified in the arguments.}
 \description{
-For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R. This function supports multiple competitions and seasons simultaneously. Currently, parallel is only supported for windows.}
+For use with the StatsBomb Staging Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R. This function supports multiple competitions and seasons simultaneously. Currently, parallel is only supported for windows. Staging Access Required.}
 \usage{
-MultiCompEvents(username = "username", password = "password",
+StagingMultiCompEvents(username = "username", password = "password",
                 competitionmatrix)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -39,15 +39,16 @@ MultiCompEvents(username = "username", password = "password",
 }
 \examples{
 ##Pull Competitions From the API
-comps <- competitions(username, password)
+comps <- stagingcomps(username, password)
 ##Filter for the competitions you want
 EuropeComps <- comps %>% filter(country_name == "Europe")
 ##Create a matrix of the competition and season ids
 competitionmatrix <- as.matrix(EuropeComps[,1:2])
 ##Pull all of the events.
-Events <- MultiCompEvents(username, password, competitionmatrix)
+Events <- StagingMultiCompEvents(username, password, competitionmatrix)
 
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
 \keyword{Competition}% __ONLY ONE__ keyword per line
 \keyword{Events}% __ONLY ONE__ keyword per line
+
