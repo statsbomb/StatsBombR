@@ -1,7 +1,7 @@
 freezeframeinfo <- function(dataframe){
   Shots.FF <- dataframe %>%
     filter(type.name == "Shot") %>%
-    dplyr::select(id, shot.freeze_frame, location.x, location.y, DistToGoal, AngleToGoal)
+    dplyr::select(id, shot.freeze_frame, location.x, location.y, location.x.GK, location.y.GK, DistToGoal, AngleToGoal)
   Shots.FF <- as_tibble(Shots.FF)
   Shots.FF <- Shots.FF %>%
     mutate(Angle.New = ifelse(AngleToGoal > 90, 180 - AngleToGoal, AngleToGoal)) %>%
@@ -41,7 +41,9 @@ freezeframeinfo <- function(dataframe){
            x =Shots.FF$location.x,
            y = Shots.FF$location.y,
            new.x = Shots.FF$new.x,
-           new.y = Shots.FF$new.y) %>%
+           new.y = Shots.FF$new.y,
+           location.x.GK = Shots.FF$location.x.GK,
+           location.y.GK = Shots.FF$location.y.GK) %>%
     mutate(id = as.character(id))
 
   #Join with the freeze frame table
@@ -62,43 +64,48 @@ freezeframeinfo <- function(dataframe){
     mutate(InCone = sp::point.in.polygon(location.x,
                                          location.y,
                                          c(120, 120, new.x),
-                                         c(35, 45, new.y)))
+                                         c(35, 45, new.y))) %>%
+    mutate(InCone.GK = sp::point.in.polygon(location.x,
+                                            location.y,
+                                            c(location.x.GK, location.x.GK, x, x),
+                                            c(location.y.GK-1, location.y.GK+1, y-1, y +1)))
 
   df <- df %>%
     ungroup() %>%
-    mutate(InCone = ifelse(InCone > 0, 1, InCone))
+    mutate(InCone = ifelse(InCone > 0, 1, InCone)) %>%
+    mutate(InCone.GK = ifelse(InCone.GK > 0, 1, InCone.GK))
 
   ##Summarise values down for each id
   density <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == FALSE) %>%
+    filter(location.x >= x & teammate == FALSE & position.name != "Goalkeeper") %>%
     summarise(density = sum(1/distance))
 
   density.incone <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == FALSE & InCone == 1) %>%
+    filter(location.x >= x & teammate == FALSE & InCone == 1  & position.name != "Goalkeeper") %>%
     summarise(density.incone = sum(1/distance))
 
-  density.A <- df %>%
+  DefendersInCone <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == TRUE) %>%
-    summarise(density.A = sum(1/distance))
+    filter(location.x >= x & InCone == 1 & teammate == FALSE & position.name != "Goalkeeper") %>%
+    summarise(DefendersInCone = n())
 
-  density.incone.A <- df %>%
+  InCone.GK <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == TRUE & InCone == 1) %>%
-    summarise(density.incone.A = sum(1/distance))
+    filter(location.x >= x & InCone.GK == 1) %>%
+    summarise(InCone.GK = n())
 
   distance.ToD1 <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == FALSE) %>%
+    filter(location.x >= x & teammate == FALSE & position.name != "Goalkeeper") %>%
     arrange(distance) %>%
     slice(1) %>%
     select(id, distance.ToD1 = distance)
 
   distance.ToD2 <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == FALSE) %>%
+    filter(location.x >= x & teammate == FALSE & position.name != "Goalkeeper") %>%
     arrange(distance) %>%
     slice(2) %>%
     select(id, distance.ToD2 = distance)
@@ -110,17 +117,14 @@ freezeframeinfo <- function(dataframe){
 
   DefendersBehindBall <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == FALSE) %>%
+    filter(location.x >= x & teammate == FALSE & position.name != "Goalkeeper") %>%
     summarise(DefendersBehindBall = n())
 
-  AttackersInCone <- df %>%
+  DefArea <- df %>%
     group_by(id) %>%
-    filter(location.x >= x & teammate == TRUE & InCone == 1) %>%
-    summarise(AttackersInCone = n())
-  DefendersInCone <- df %>%
-    group_by(id) %>%
-    filter(location.x >= x & teammate == FALSE & InCone == 1) %>%
-    summarise(DefendersInCone = n())
+    mutate(Defender = ifelse(teammate == FALSE & position.id %in% c(2:8), 1, 0)) %>%
+    filter(Defender == 1) %>%
+    summarise(DefArea = (max(location.x) - min(location.x))*(max(location.y) - min(location.y)))
 
   #We need to join these
   Shots.FF <- Shots.FF %>%
@@ -128,24 +132,22 @@ freezeframeinfo <- function(dataframe){
     left_join(density.incone) %>%
     left_join(distance.ToD1) %>%
     left_join(distance.ToD2) %>%
-    left_join(density.A) %>%
-    left_join(density.incone.A) %>%
+    left_join(InCone.GK) %>%
     left_join(AttackersBehindBall) %>%
     left_join(DefendersBehindBall) %>%
-    left_join(AttackersInCone) %>%
-    left_join(DefendersInCone)
+    left_join(DefendersInCone) %>%
+    left_join(DefArea)
 
   #We need some way of changing the value if everything gets filtered out.
   ##These are easy.
   Shots.FF <- Shots.FF %>%
     mutate(density = ifelse(is.na(density), 0, density),
            density.incone = ifelse(is.na(density.incone), 0, density.incone),
-           density.A = ifelse(is.na(density.A), 0, density.A),
-           density.incone.A = ifelse(is.na(density.incone.A), 0, density.incone.A),
            AttackersBehindBall = ifelse(is.na(AttackersBehindBall), 0, AttackersBehindBall),
            DefendersBehindBall = ifelse(is.na(DefendersBehindBall), 0, DefendersBehindBall),
-           AttackersInCone = ifelse(is.na(AttackersBehindBall), 0, AttackersBehindBall),
-           DefendersInCone = ifelse(is.na(DefendersBehindBall), 0, DefendersBehindBall))
+           DefendersInCone = ifelse(is.na(DefendersInCone), 0, DefendersInCone),
+           InCone.GK = ifelse(is.na(InCone.GK), 0, InCone.GK),
+           DefArea = ifelse(is.na(DefArea), 1000, DefArea))
 
   ##The only ones we need to change are the distance metrics.
   posdist1 <- df %>%
@@ -174,8 +176,8 @@ freezeframeinfo <- function(dataframe){
 
 
   Shots.FF <- Shots.FF %>% dplyr::select(id, density, density.incone, distance.ToD1, distance.ToD2,
-                                         density.A, density.incone.A, AttackersBehindBall, DefendersBehindBall,
-                                         AttackersInCone, DefendersInCone)
+                                         AttackersBehindBall, DefendersBehindBall,
+                                         DefendersInCone, InCone.GK, DefArea)
 
   dataframe <- left_join(dataframe, Shots.FF)
 
