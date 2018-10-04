@@ -155,23 +155,25 @@ freezeframeinfo <- function(dataframe){
     filter(location.x < x & teammate == FALSE) %>%
     arrange(distance) %>%
     slice(1) %>%
-    select(id, posdist1 = distance)
+    select(id, posdist1 = distance) %>%
+    mutate(posdist1 = -posdist1)
 
   posdist2 <- df %>%
     group_by(id) %>%
     filter(location.x < x & teammate == FALSE) %>%
     arrange(distance) %>%
     slice(2) %>%
-    select(id, posdist2 = distance)
+    select(id, posdist2 = distance) %>%
+    mutate(posdist2 = -posdist2)
 
   Shots.FF <- Shots.FF %>%
     left_join(posdist1) %>%
     left_join(posdist2)
 
   Shots.FF <- Shots.FF %>%
-    mutate(distance.ToD1 = ifelse(is.na(distance.ToD1) & is.na(posdist1), NA,
+    mutate(distance.ToD1 = ifelse(is.na(distance.ToD1) & is.na(posdist1), 30,
                                   ifelse(is.na(distance.ToD1), posdist1, distance.ToD1)),
-           distance.ToD2 = ifelse(is.na(distance.ToD2) & is.na(posdist2), NA,
+           distance.ToD2 = ifelse(is.na(distance.ToD2) & is.na(posdist2), 30,
                                   ifelse(is.na(distance.ToD2), posdist2, distance.ToD2)))
 
 
