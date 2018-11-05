@@ -37,18 +37,44 @@ get.gamestate <- function(AllEvents){
     mutate(TimeInBetween = max(ElapsedTime) - min(ElapsedTime)) %>%
     group_by(match_id, WinningTeam) %>%
     slice(1) %>%
-    summarise(Time = sum(TimeInBetween))
+    summarise(Time = sum(TimeInBetween)) %>%
+    rename(team.name = WinningTeam) %>%
+    group_by(match_id) %>%
+    mutate(TotalTime = sum(Time))
 
-  MissingTeams <- AllEvents %>%
+  ##Format for three observations per team per game
+  FormatStates <- AllEvents %>%
     group_by(match_id, team.name) %>%
     slice(1) %>%
-    select(match_id, WinningTeam = team.name) %>%
-    anti_join(GameStates) %>%
-    mutate(Time = 0)
+    select(match_id, team.name) %>%
+    slice(rep(1:n(), each = 3)) %>%
+    ungroup() %>%
+    mutate(GameState = rep(c("Winning", "Drawing", "Losing"), length(FormatStates$team.name)/3))
 
-  GameStates <- bind_rows(GameStates, MissingTeams) %>%
-    arrange(match_id, Time)
+  ##Draws are easy.
+  Drawing <- GameStates %>% filter(team.name == "Drawing") %>% rename(GameState = team.name)
+  Draws <- FormatStates %>% filter(GameState == "Drawing")
+  Draws <- Draws %>% left_join(Drawing) %>% select(-TotalTime)
 
+  ##Winning we need the opposing team.
+  Opposition <- AllEvents %>%
+    select(match_id, team.name, OpposingTeam) %>%
+    group_by(match_id, team.name) %>%
+    slice(1)
+  Winning <- GameStates %>% filter(team.name != "Drawing") %>% mutate(GameState = "Winning")
+  Winning <- left_join(Winning, Opposition)
+
+  Losing <- Winning %>%
+    select(match_id, team.name = OpposingTeam, Time, GameState) %>%
+    mutate(GameState = "Losing")
+  Winning <- Winning %>%
+    select(match_id, team.name, Time, GameState)
+  States <- bind_rows(Draws, Winning, Losing) %>%
+    arrange(match_id, team.name, GameState)
+
+  GameStates <- left_join(FormatStates, States)
+
+  GameStates <- GameStates %>% mutate(Time = ifelse(is.na(Time), 0, Time))
   ##Returns a list
   #temp <- get.gamestate(EPLclean)
   #AllEvents <- temp[1][[1]]
