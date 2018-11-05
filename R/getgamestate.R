@@ -1,6 +1,8 @@
 get.gamestate <- function(AllEvents){
   ##Data must include at least one event from each team.
   ##Data must include all goals.
+  ##Data should exclude the opposingteam variable.
+
   ##This function returns a new variable for the game state for the team who logged the current event.
   ##This function also returns a dataframe of the total minutes played at each state per team.
 
@@ -35,8 +37,9 @@ get.gamestate <- function(AllEvents){
     mutate(StateChanges = cumsum(ChangeInState)) %>%
     group_by(match_id, StateChanges) %>%
     mutate(TimeInBetween = max(ElapsedTime) - min(ElapsedTime)) %>%
-    group_by(match_id, WinningTeam) %>%
+    group_by(match_id, StateChanges) %>%
     slice(1) %>%
+    group_by(match_id, WinningTeam) %>%
     summarise(Time = sum(TimeInBetween)) %>%
     rename(team.name = WinningTeam) %>%
     group_by(match_id) %>%
@@ -47,14 +50,17 @@ get.gamestate <- function(AllEvents){
     group_by(match_id, team.name) %>%
     slice(1) %>%
     select(match_id, team.name) %>%
-    slice(rep(1:n(), each = 3)) %>%
+    slice(rep(1:n(), each = 3))
+
+  FormatStates <- FormatStates %>%
     ungroup() %>%
     mutate(GameState = rep(c("Winning", "Drawing", "Losing"), length(FormatStates$team.name)/3))
 
   ##Draws are easy.
   Drawing <- GameStates %>% filter(team.name == "Drawing") %>% rename(GameState = team.name)
   Draws <- FormatStates %>% filter(GameState == "Drawing")
-  Draws <- Draws %>% left_join(Drawing) %>% select(-TotalTime)
+  Drawing <- left_join(Draws, Drawing)
+  Drawing <- Drawing %>% select(-TotalTime)
 
   ##Winning we need the opposing team.
   Opposition <- AllEvents %>%
@@ -69,7 +75,8 @@ get.gamestate <- function(AllEvents){
     mutate(GameState = "Losing")
   Winning <- Winning %>%
     select(match_id, team.name, Time, GameState)
-  States <- bind_rows(Draws, Winning, Losing) %>%
+
+  States <- bind_rows(Drawing, Winning, Losing) %>%
     arrange(match_id, team.name, GameState)
 
   GameStates <- left_join(FormatStates, States)
