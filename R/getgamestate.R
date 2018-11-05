@@ -4,7 +4,7 @@ get.gamestate <- function(AllEvents){
   ##This function returns a new variable for the game state for the team who logged the current event.
   ##This function also returns a dataframe of the total minutes played at each state per team.
 
-  AllEvents <- getOpposingTeam(AllEvents)
+  AllEvents <- getOpposingTeam(EPLclean)
   AllEvents <- AllEvents %>%
     mutate(Goal = ifelse(shot.outcome.name == "Goal" | type.name == "Own Goal For", 1, 0)) %>%
     mutate(Goal = ifelse(is.na(Goal), 0, Goal)) %>%
@@ -74,7 +74,8 @@ get.gamestate <- function(AllEvents){
 
   GameStates <- left_join(FormatStates, States)
 
-  GameStates <- GameStates %>% mutate(Time = ifelse(is.na(Time), 0, Time))
+  GameStates <- GameStates %>% mutate(Time = ifelse(is.na(Time), 0, Time)) %>% mutate(Time = Time/60)
+
   ##Returns a list
   #temp <- get.gamestate(EPLclean)
   #AllEvents <- temp[1][[1]]
