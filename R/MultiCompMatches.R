@@ -5,20 +5,15 @@ MultiCompMatches <- function(username, password, competitionmatrix){
   registerDoParallel(cl)
   events <- tibble()
   for(i in 1:dim(competitionmatrix)[1]){
-    temp.matches <- tibble()
+    matches <- tibble()
     competition_id <- as.numeric(competitionmatrix[i, 1])
     season_id <- as.numeric(competitionmatrix[i, 2])
-    matches <- matchesvector(username, password, season_id, competition_id)
-    temp.matches <- foreach(i = matches, .combine=bind_rows, .multicombine = TRUE,
-                            .errorhandling = 'remove', .export = c("get.match"),
-                            .packages = c("httr", "jsonlite", "dplyr")) %dopar%
-                            {matches.url <- paste0("https://data.statsbombservices.com/api/v1/competitions/", competition_id,
-                                                  "/seasons/", season_id, "/matches")
-                            raw.match.api <- GET(url = matches.url, authenticate(username, password))
-                            matches.string <- rawToChar(raw.match.api$content)
-                            Encoding(matches.string) <- "UTF-8"
-                            matches <- fromJSON(matches.string, flatten = T)}
-    events <- bind_rows(events, temp.matches)
+    matches.url <- paste0("https://data.statsbombservices.com/api/v1/competitions/", competition_id,
+                          "/seasons/", season_id, "/matches")
+    raw.match.api <- GET(url = matches.url, authenticate(username, password))
+    matches.string <- rawToChar(raw.match.api$content)
+    matches <- fromJSON(matches.string, flatten = T)
+    events <- bind_rows(events, matches)
   }
   stopCluster(cl)
   print(Sys.time()-strt)
