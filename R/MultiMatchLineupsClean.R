@@ -1,4 +1,5 @@
-alllineups <- function(username = username, password = password, matchesvector, parallel = T){
+MultiMatchLineupsClean <- function(username, password, matchesvector, parallel = T){
+
   if(parallel == T){
     cl <- makeCluster(detectCores())
     registerDoParallel(cl)
@@ -23,6 +24,28 @@ alllineups <- function(username = username, password = password, matchesvector, 
     }
     print(Sys.time()-strt)
   }
-  return(lineups)
-}
 
+  #Open up the nested lineup dataframe and flatten it.
+  myList <- lineups$lineup
+  fixnull <- function(x) {
+    if(is.data.frame(x)){
+      return(x)
+    } else {
+      return(setNames(data.frame(matrix(ncol = ncol(myList[[1]]), nrow = 1)), names(myList[[1]])))
+    }
+  }
+
+  # Apply the written function above to every element in myList
+  myList <- lapply(myList, fixnull)
+
+  # "bind_rows" with mynewList
+  df <- bind_rows(myList, .id = "id")
+
+  ##Index Length
+  idtable <- lineups %>% mutate(id = unique(df$id)) %>% select(-lineup)
+
+  #Join with the freeze frame table
+  df <- left_join(df, idtable)
+
+  return(df)
+}
