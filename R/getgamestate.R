@@ -8,9 +8,10 @@ get.gamestate <- function(AllEvents){
 
   AllEvents <- getOpposingTeam(AllEvents)
   AllEvents <- AllEvents %>%
-    mutate(Goal = ifelse(shot.outcome.name == "Goal" | type.name == "Own Goal For", 1, 0)) %>%
+    mutate(Goal = ifelse(lag(shot.outcome.name) == "Goal" | lag(type.name) == "Own Goal For", 1, 0)) %>%
     mutate(Goal = ifelse(is.na(Goal), 0, Goal)) %>%
-    mutate(TimeOfGoal = ifelse(Goal == 1, ElapsedTime, 0)) %>%
+    mutate(duration = ifelse(is.na(duration), 0.01, duration)) %>%
+    mutate(TimeOfGoal = ifelse(Goal == 1, lag(ElapsedTime) + lag(duration), 0)) %>%
     group_by(match_id, team.name) %>%
     mutate(Score = cumsum(Goal)) %>%
     ungroup() %>%
@@ -24,7 +25,7 @@ get.gamestate <- function(AllEvents){
     mutate(WinningTeam = ifelse(GameState == "Winning", team.name,
                                 ifelse(GameState == "Losing", OpposingTeam, "Drawing")))
 
-    ##Define the time at each state from the change in state.
+  ##Define the time at each state from the change in state.
   ##But we have to define the change in state from the scoring team.
   ##Since the change in state switches throughout each event.
   GameStates <- AllEvents %>%
