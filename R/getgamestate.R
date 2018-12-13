@@ -8,6 +8,7 @@ get.gamestate <- function(AllEvents){
 
   AllEvents <- getOpposingTeam(AllEvents)
   AllEvents <- AllEvents %>%
+    arrange(match_id, index) %>%
     mutate(Goal = ifelse(lag(shot.outcome.name) == "Goal" | lag(type.name) == "Own Goal For", 1, 0)) %>%
     mutate(Goal = ifelse(is.na(Goal), 0, Goal)) %>%
     mutate(duration = ifelse(is.na(duration), 0.01, duration)) %>%
