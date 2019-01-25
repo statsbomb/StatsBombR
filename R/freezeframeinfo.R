@@ -103,12 +103,26 @@ freezeframeinfo <- function(dataframe){
     slice(1) %>%
     select(id, distance.ToD1 = distance)
 
+  distance.ToD1.360 <- df %>%
+    group_by(id) %>%
+    filter(teammate == FALSE & position.name != "Goalkeeper") %>%
+    arrange(distance) %>%
+    slice(1) %>%
+    select(id, distance.ToD1.360 = distance)
+
   distance.ToD2 <- df %>%
     group_by(id) %>%
     filter(location.x >= x & teammate == FALSE & position.name != "Goalkeeper") %>%
     arrange(distance) %>%
     slice(2) %>%
     select(id, distance.ToD2 = distance)
+
+  distance.ToD2.360 <- df %>%
+    group_by(id) %>%
+    filter(teammate == FALSE & position.name != "Goalkeeper") %>%
+    arrange(distance) %>%
+    slice(2) %>%
+    select(id, distance.ToD2.360 = distance)
 
   AttackersBehindBall <- df %>%
     group_by(id) %>%
@@ -136,7 +150,9 @@ freezeframeinfo <- function(dataframe){
     left_join(AttackersBehindBall) %>%
     left_join(DefendersBehindBall) %>%
     left_join(DefendersInCone) %>%
-    left_join(DefArea)
+    left_join(DefArea) %>%
+    left_join(distance.ToD1.360) %>%
+    left_join(distance.ToD2.360)
 
   #We need some way of changing the value if everything gets filtered out.
   ##These are easy.
@@ -179,7 +195,7 @@ freezeframeinfo <- function(dataframe){
 
   Shots.FF <- Shots.FF %>% dplyr::select(id, density, density.incone, distance.ToD1, distance.ToD2,
                                          AttackersBehindBall, DefendersBehindBall,
-                                         DefendersInCone, InCone.GK, DefArea)
+                                         DefendersInCone, InCone.GK, DefArea, distance.ToD1.360, distance.ToD2.360)
 
   dataframe <- left_join(dataframe, Shots.FF)
 
