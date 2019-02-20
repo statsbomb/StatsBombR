@@ -1,4 +1,4 @@
-get.match <- function(username, password,
+get.events <- function(username, password,
                       match_id, version = "v1",
                       baseurl = "https://data.statsbombservices.com/api/"){
   events <- tibble()

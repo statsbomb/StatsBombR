@@ -1,4 +1,4 @@
-allmatches <- function(username = username, password = password, matches, version = "v1",
+allevents <- function(username = username, password = password, matches, version = "v1",
                        baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, cores = detectCores()){
   if(parallel == T){
     if(cores == detectCores()){
@@ -13,7 +13,7 @@ allmatches <- function(username = username, password = password, matches, versio
     temp.matches <- foreach(i = matches, .combine=bind_rows, .multicombine = TRUE,
                             .errorhandling = 'remove', .export = c("get.match"),
                             .packages = c("httr", "jsonlite", "dplyr")) %dopar%
-                            {get.match(username = username, password = password,
+                            {get.events(username = username, password = password,
                                        i, version, baseurl)}
 
     print(Sys.time()-strt)

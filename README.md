@@ -86,14 +86,15 @@ It is important to note, that the argument here is the entire row returns from "
 
 ## To read in events for one game, simply run: 
 
-1. `StatsBombData <- get.match(username, password, match_id)`
+1. `StatsBombData <- get.events(username, password, match_id)`
 
+Note:  A previous version of this function was named get.match(), get.match() is now deprecated).
 #### To read in events for multiple games, run:
 
 1. Create a vector of match IDs:`matchids <- matchesvector(username, password, season_id, competition_id)`
-2. `StatsBombData <- allmatches(username, password, matchids)`
+2. `StatsBombData <- allevents(username, password, matchids)`
 
-Note: See documentation for additional parameters available to access different API versions, run in parallel or not, choose a specific number of cores.
+Note: See documentation for additional parameters available to access different API versions, run in parallel or not, choose a specific number of cores. (A previous version of this function was named allmatches(), allmatches() is now deprecated).
 
 #### To read in all of the events for various competitions.
 

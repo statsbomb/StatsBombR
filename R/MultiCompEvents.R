@@ -7,7 +7,7 @@ MultiCompEvents <- function(username, password, competitionmatrix, version = "v1
     competition_id <- as.numeric(competitionmatrix[i, 1])
     season_id <- as.numeric(competitionmatrix[i, 2])
     matches <- matchesvector(username, password, season_id, competition_id)
-    temp.matches <- allmatches(username, password, matches, version, baseurl, parallel, cores)
+    temp.matches <- allevents(username, password, matches, version, baseurl, parallel, cores)
     temp.matches <- temp.matches %>%
       mutate(competition_id = competition_id,
              season_id = season_id)
