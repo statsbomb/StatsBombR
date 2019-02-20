@@ -77,7 +77,7 @@ It is important to note, that the argument here is the entire row returns from "
 
 1. `matches <- get.matches(username, pasword, season_id, competition_id)`
 
-####To read in all of the matches for various competitions.
+#### To read in all of the matches for various competitions.
 
 1. Pull Competitions From the API: `comps <- competitions(username, password)`
 2. Filter for the competitions you want: `EuropeComps <- comps %>% filter(country_name == "Europe")`
@@ -95,7 +95,7 @@ It is important to note, that the argument here is the entire row returns from "
 
 Note: See documentation for additional parameters available to access different API versions, run in parallel or not, choose a specific number of cores.
 
-####To read in all of the events for various competitions.
+#### To read in all of the events for various competitions.
 
 1. Pull Competitions From the API: `comps <- competitions(username, password)`
 2. Filter for the competitions you want: `EuropeComps <- comps %>% filter(country_name == "Europe")`
@@ -110,6 +110,10 @@ Note: See documentation for additional parameters available to access different 
 
 1. `matchids <- matchesvector(username, password, season_id, competition_id)`
 2. `StatsBombLineups <- allineups(username, password, matchids, parallel = T)`
+
+#### To unnest all of the lineups:
+
+`StatsBombLineups <- cleanlineups(StatsBombLineups)`
 
 # Data Cleaning Helpers:
 
@@ -154,9 +158,6 @@ Description of these variables:
 
 `StatsBombData <- possessioninfo(StatsBombData)`
 
-####To unnest all of the lineups:
-
-`lineups <- cleanlineups(lineups)`
 
 # Final Notes:
 
