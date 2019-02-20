@@ -1,6 +1,7 @@
-get.lineups <- function(username, password, match_id){
+get.lineups <- function(username, password, match_id, version = "v1",
+                        baseurl = "https://data.statsbombservices.com/api/"){
   events <- tibble()
-  Events.url <- paste0("https://data.statsbombservices.com/api/v1/lineups/", match_id)
+  Events.url <- paste0(baseurl, version, "/lineups/", match_id)
   raw.events.api <- GET(url = Events.url, authenticate(username, password))
   events.string <- rawToChar(raw.events.api$content)
   Encoding(events.string) <- "UTF-8"

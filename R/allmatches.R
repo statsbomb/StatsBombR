@@ -1,16 +1,20 @@
-allmatches <- function(username = username, password = password, matches, season_id, competition_id, parallel = T){
+allmatches <- function(username = username, password = password, matches, version = "v1",
+                       baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, cores = detectCores()){
   if(parallel == T){
-    cl <- makeCluster(detectCores())
+    if(cores == detectCores()){
+      cl <- makeCluster(detectCores())
+    } else {
+      cl <- makeCluster(cores)
+    }
     registerDoParallel(cl)
 
     #start time
     strt<-Sys.time()
-
     temp.matches <- foreach(i = matches, .combine=bind_rows, .multicombine = TRUE,
                             .errorhandling = 'remove', .export = c("get.match"),
                             .packages = c("httr", "jsonlite", "dplyr")) %dopar%
                             {get.match(username = username, password = password,
-                                       i, season_id, competition_id)}
+                                       i, version, baseurl)}
 
     print(Sys.time()-strt)
     stopCluster(cl)
@@ -28,9 +32,7 @@ allmatches <- function(username = username, password = password, matches, season
       if(length(events) == 0){
         temp.matches <- temp.matches #Some of the matches in the premier league are not available yet.
       } else {
-        events <- events %>% mutate(match_id = i,
-                                    competition_id = competition_id,
-                                    season_id = season_id)
+        events <- events %>% mutate(match_id = i)
         temp.matches <- bind_rows(temp.matches, events)
       }
     }

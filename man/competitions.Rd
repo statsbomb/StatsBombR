@@ -9,6 +9,13 @@ competitions(username, password)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
+  \item{username}{Character string of your StatsBomb API username.
+}
+\item{password}{Character string of your StatsBomb API password.
+}
+\item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1 and v2 are supported.
+}
+
 }
 \details{
 }

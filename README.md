@@ -4,11 +4,11 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated August 8, 2018 many time expensive functions sped up.
+#### Updated February 19, 2019.
 
 This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
-This package offers a parallel option to most computationally expensive functions. However, it is currently only supported on Windows.
+This package offers a parallel option to most computationally expensive functions. However, it is currently only designed for Windows.
 
 # Installation Instructions:
 
@@ -18,7 +18,9 @@ This package offers a parallel option to most computationally expensive function
 
 This package depends on several other packages in order for all functions to run. Therefore, if you have problems with any functions or with installing the package, it is likely due to package dependencies.
 
-# Free Data Instructions:
+# Free Data 
+
+## Free Data Instructions:
 
 Welcome to the Free Data Offerings from StatsBomb Services. 
 
@@ -39,11 +41,11 @@ By using this repository, you are agreeing to the user agreement.
 
 If you publish, share or distribute any research, analysis or insights based on this data, please state the data source as StatsBomb and use our logo.
 
-#### To read in all events available:
+#### To read in all free events available:
 
 `StatsBombData <- StatsBombFreeEvents()`
 
-##### To read in all of the competitions we offer simply run:
+##### To read in all of the free competitions we offer simply run:
 
 `FreeCompetitions()`
 
@@ -51,28 +53,63 @@ or, for use in other functions, store it as a data frame object:
 
 `Comp <- FreeCompetitions()`
 
-#### To read in the matches available:
+#### To read in the free matches available:
 
 `Matches <- FreeMatches(Comp$competition_id)`
 
-#### To read in events for a certain game:
+#### To read in free events for a certain game:
 
 `get.matchFree(Matches[1,])` 
 
 It is important to note, that the argument here is the entire row returns from "FreeMatches", this is because there is information from each match observation that is needed in the `get.matchFree` function.
 
-# API Data Access Instructions:
+# API Data 
+
+## API Access Instructions:
 
 **API access is for paying customers only**
 
-#### To read in just one game, simply run: 
+## To read in the competitions available through StatsBomb, run:
 
-1. `StatsBombData <- getmatch(username, password, match_id, season_id, competition_id)`
+1. `competitions <- competitions(username, password)`
 
-#### To read multiple games, run:
+## To read in the matches available in each competition, run:
 
-1. `matches <- matchesvector(username, password, season_id, competition_id)`
-2. `StatsBombData <- allmatches(username, password, matches, season_id, competition_id, parallel = T)`
+1. `matches <- get.matches(username, pasword, season_id, competition_id)`
+
+####To read in all of the matches for various competitions.
+
+1. Pull Competitions From the API: `comps <- competitions(username, password)`
+2. Filter for the competitions you want: `EuropeComps <- comps %>% filter(country_name == "Europe")`
+3. Create a matrix of the competition and season ids: `competitionmatrix <- as.matrix(EuropeComps[,1:2])`
+4. Pull all of the matches: `Matches <- MultiCompMatches(username, password, competitionmatrix)`
+
+## To read in events for one game, simply run: 
+
+1. `StatsBombData <- get.match(username, password, match_id)`
+
+#### To read in events for multiple games, run:
+
+1. Create a vector of match IDs:`matchids <- matchesvector(username, password, season_id, competition_id)`
+2. `StatsBombData <- allmatches(username, password, matchids)`
+
+Note: See documentation for additional parameters available to access different API versions, run in parallel or not, choose a specific number of cores.
+
+####To read in all of the events for various competitions.
+
+1. Pull Competitions From the API: `comps <- competitions(username, password)`
+2. Filter for the competitions you want: `EuropeComps <- comps %>% filter(country_name == "Europe")`
+3. Create a matrix of the competition and season ids: `competitionmatrix <- as.matrix(EuropeComps[,1:2])`
+4. Pull all of the events: `Events <- MultiCompEvents(username, password, competitionmatrix)`
+
+## To read in the lineups for one game, run:
+
+1. `lineups <- get.lineups(username, password, match_id)`
+
+#### To read in multiple lineups, run:
+
+1. `matchids <- matchesvector(username, password, season_id, competition_id)`
+2. `StatsBombLineups <- allineups(username, password, matchids, parallel = T)`
 
 # Data Cleaning Helpers:
 
@@ -117,9 +154,15 @@ Description of these variables:
 
 `StatsBombData <- possessioninfo(StatsBombData)`
 
+####To unnest all of the lineups:
+
+`lineups <- cleanlineups(lineups)`
+
 # Final Notes:
 
 - Some of the cleaning functions above depend on variables created in the functions presented before them. In order to be safe, please clean your data in the order that is presented in this document.
 - Please re-install frequently, as new functions and bug fixes will be added regularly.
 - As always, check out the Rdocumentation for each function (ex. `?StatsBombFreeEvents()`) for more specific description.
 - Please contact [support@statsbombservices.com](support@statsbombservices.com) with bugs and suggestions.
+
+

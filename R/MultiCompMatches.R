@@ -1,5 +1,6 @@
 ##Multi Competition Matches Function.
-MultiCompMatches <- function(username, password, competitionmatrix){
+MultiCompMatches <- function(username, password, competitionmatrix, version = "v1",
+                             baseurl = "https://data.statsbombservices.com/api/"){
   strt<-Sys.time()
   cl <- makeCluster(detectCores())
   registerDoParallel(cl)
@@ -8,7 +9,7 @@ MultiCompMatches <- function(username, password, competitionmatrix){
     matches <- tibble()
     competition_id <- as.numeric(competitionmatrix[i, 1])
     season_id <- as.numeric(competitionmatrix[i, 2])
-    matches.url <- paste0("https://data.statsbombservices.com/api/v1/competitions/", competition_id,
+    matches.url <- paste0(baseurl, version, "/competitions/", competition_id,
                           "/seasons/", season_id, "/matches")
     raw.match.api <- GET(url = matches.url, authenticate(username, password))
     matches.string <- rawToChar(raw.match.api$content)

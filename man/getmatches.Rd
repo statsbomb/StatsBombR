@@ -3,10 +3,11 @@
 \title{
 This function returns all matches from the specified season and competition.}
 \description{
-For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and return the matches in vector form. For reference, the premier league has a competition id = 2 and 2018 is season_id = 1.}
+For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and return the matches in vector form. For reference, the premier league has a competition id = 2 and 2018 is season_id = 1. We apologize for the confusing nature of having a get.matches that returns all of the matches in a competition and the function get.match which returns all of the events in a match. }
 \usage{
 get.matches(username = "username", password = "password",
-                      season_id = "season_id", competition_id = "competition_id")
+                      season_id = "season_id", competition_id = "competition_id", version = "v1",
+                        baseurl = "https://data.statsbombservices.com/api/")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,7 +20,8 @@ get.matches(username = "username", password = "password",
 
 \item{competition_id}{Character object of the competition_id for the match you wish to access.
 }
-
+\item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1 and v2 are supported.
+}
 }
 \details{
 }
@@ -43,7 +45,8 @@ get.matches(username = "username", password = "password",
 }
 \examples{
 get.matches(username = "username", password = "password",
-                      season_id = "season_id", competition_id = "competition_id")
+                      season_id = "season_id", competition_id = "competition_id", version = "v1",
+                             baseurl = "https://data.statsbombservices.com/api/")
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
 \keyword{Match}% __ONLY ONE__ keyword per line

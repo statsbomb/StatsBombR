@@ -1,4 +1,5 @@
-alllineups <- function(username = username, password = password, matchesvector, parallel = T){
+alllineups <- function(username = username, password = password, matchesvector, parallel = T, version = "v1",
+                       baseurl = "https://data.statsbombservices.com/api/"){
   if(parallel == T){
     cl <- makeCluster(detectCores())
     registerDoParallel(cl)
@@ -9,7 +10,7 @@ alllineups <- function(username = username, password = password, matchesvector, 
     lineups <- foreach(i = matchesvector, .combine=bind_rows, .multicombine = TRUE,
                             .errorhandling = 'remove', .export = c("get.lineups"),
                             .packages = c("httr", "jsonlite", "dplyr")) %dopar%
-                            {get.lineups(username = username, password = password, i)}
+                            {get.lineups(username = username, password = password, i, version = version, baseurl = baseurl)}
 
     print(Sys.time()-strt)
     stopCluster(cl)
@@ -18,7 +19,7 @@ alllineups <- function(username = username, password = password, matchesvector, 
     strt<-Sys.time()
     lineups <- tibble()
     for(i in matchesvector){
-      line1 <- get.lineups(username, password, matchesvector[i])
+      line1 <- get.lineups(username, password, matchesvector[i], version = version, baseurl = baseurl)
       lineups <- bind_rows(lineups, line1)
     }
     print(Sys.time()-strt)

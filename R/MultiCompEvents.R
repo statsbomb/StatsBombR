@@ -1,24 +1,19 @@
 ##Multi Competition Events Function.
-MultiCompEvents <- function(username, password, competitionmatrix){
-  strt<-Sys.time()
-  cl <- makeCluster(detectCores())
-  registerDoParallel(cl)
+MultiCompEvents <- function(username, password, competitionmatrix, version = "v1",
+                            baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, cores = detectCores()){
   events <- tibble()
   for(i in 1:dim(competitionmatrix)[1]){
     temp.matches <- tibble()
     competition_id <- as.numeric(competitionmatrix[i, 1])
     season_id <- as.numeric(competitionmatrix[i, 2])
     matches <- matchesvector(username, password, season_id, competition_id)
-    temp.matches <- foreach(i = matches, .combine=bind_rows, .multicombine = TRUE,
-                            .errorhandling = 'remove', .export = c("get.match"),
-                            .packages = c("httr", "jsonlite", "dplyr")) %dopar%
-                            {get.match(username = username, password = password,
-                                       i, season_id, competition_id)}
+    temp.matches <- allmatches(username, password, matches, version, baseurl, parallel, cores)
+    temp.matches <- temp.matches %>%
+      mutate(competition_id = competition_id,
+             season_id = season_id)
     events <- bind_rows(events, temp.matches)
   }
-  stopCluster(cl)
   events <- events %>% dplyr::select(-num_range("shot", 1:20))
-  print(Sys.time()-strt)
   return(events)
 }
 
