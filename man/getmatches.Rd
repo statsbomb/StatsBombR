@@ -7,7 +7,8 @@ For use with the StatsBomb Data API credentials. This function is used to access
 \usage{
 get.matches(username = "username", password = "password",
                       season_id = "season_id", competition_id = "competition_id", version = "v1",
-                        baseurl = "https://data.statsbombservices.com/api/")
+                        baseurl = "https://data.statsbombservices.com/api/",
+                        remove.deleted.matches = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,6 +22,8 @@ get.matches(username = "username", password = "password",
 \item{competition_id}{Character object of the competition_id for the match you wish to access.
 }
 \item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1 and v2 are supported.
+}
+\item{remove.deleted.matches}{Boolean variable for whether or not you want the deleted matches to be removed from the returned data frame.
 }
 }
 \details{

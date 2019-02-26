@@ -1,6 +1,7 @@
 ##Multi Competition Matches Function.
 MultiCompMatches <- function(username, password, competitionmatrix, version = "v1",
-                             baseurl = "https://data.statsbombservices.com/api/"){
+                             baseurl = "https://data.statsbombservices.com/api/",
+                             remove.deleted.matches = TRUE){
   strt<-Sys.time()
   cl <- makeCluster(detectCores())
   registerDoParallel(cl)
@@ -14,6 +15,10 @@ MultiCompMatches <- function(username, password, competitionmatrix, version = "v
     raw.match.api <- GET(url = matches.url, authenticate(username, password))
     matches.string <- rawToChar(raw.match.api$content)
     matches <- fromJSON(matches.string, flatten = T)
+    if(remove.deleted.matches = TRUE){
+      matches <- matches %>%
+        filter(!match_status %in% c("deleted"))
+    }
     events <- bind_rows(events, matches)
   }
   stopCluster(cl)

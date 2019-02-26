@@ -5,9 +5,9 @@ This function returns all matches from the competitions and seasons specified in
 \description{
 For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R. This function supports multiple competitions and seasons simultaneously. Currently, parallel is only supported for windows.}
 \usage{
-MultiCompMatches(username = "username", password = "password",
-                competitionmatrix, version = "v1",
-                             baseurl = "https://data.statsbombservices.com/api/")
+MultiCompMatches(username = "username", password = "password", competitionmatrix,
+                 version = "v1", baseurl = "https://data.statsbombservices.com/api/",
+                 remove.deleted.matches = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,6 +18,8 @@ MultiCompMatches(username = "username", password = "password",
 \item{competitionmatrix}{Matrix of the competition and season ids you want the match information for. Competition ID in the first column and Season ID in the second column.
 }
 \item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1 and v2 are supported.
+}
+\item{remove.deleted.matches}{Boolean variable for whether or not you want the deleted matches to be removed from the returned data frame.
 }
 }
 \details{

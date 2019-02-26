@@ -1,6 +1,10 @@
 shotinfo <- function(dataframe){
   ##Calculate a distance from shot and distance from center of frame variable
   dataframe <- dataframe %>%
+    arrange(match_id, index)
+
+  shots <- dataframe %>%
+    filter(type.name == "Shot") %>%
     mutate(location.x = ifelse(location.x == 120 & location.y == 40, 119.66666, location.x)) %>%
     mutate(location.x.GK = ifelse(location.x.GK == 120 & location.y.GK == 40, 119.88888, location.x.GK)) %>%
     mutate(DistToGoal = sqrt((location.x - 120)^2 + (location.y - 40)^2),
@@ -14,6 +18,12 @@ shotinfo <- function(dataframe){
     mutate(avevelocity = sqrt((shot.end_location.x - location.x)^2 +
                                 (shot.end_location.y - location.y)^2)/duration) %>%
     mutate(DistSGK = sqrt((location.x - location.x.GK)^2 + (location.y - location.y.GK)^2))
+
+  others <- dataframe %>%
+    filter(type.name != "Shot")
+
+  dataframe <- bind_rows(shots, others) %>%
+    arrange(match_id, index)
 
   return(dataframe)
 }

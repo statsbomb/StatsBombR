@@ -1,5 +1,6 @@
 get.matches <- function(username, password, season_id, competition_id, version = "v1",
-                        baseurl = "https://data.statsbombservices.com/api/"){
+                        baseurl = "https://data.statsbombservices.com/api/",
+                        remove.deleted.matches = TRUE){
   competition_id <- competition_id
   season_id <- season_id
   matches.url <- paste0(baseurl, version, "/competitions/", competition_id,
@@ -8,5 +9,9 @@ get.matches <- function(username, password, season_id, competition_id, version =
   matches.string <- rawToChar(raw.match.api$content)
   Encoding(matches.string) <- "UTF-8"
   matches <- fromJSON(matches.string, flatten = T)
+  if(remove.deleted.matches = TRUE){
+    matches <- matches %>%
+      filter(!match_status %in% c("deleted"))
+  }
   return(matches)
 }

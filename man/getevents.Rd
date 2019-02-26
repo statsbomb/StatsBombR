@@ -5,7 +5,7 @@ This function returns all events for the match specified in the arguments.}
 \description{
 For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R.}
 \usage{
-get.match(username = "username", password = "password", match_id = "match_id", version = "v1",
+get.events(username = "username", password = "password", match_id = "match_id", version = "v1",
                       baseurl = "https://data.statsbombservices.com/api/")
 }
 %- maybe also 'usage' for other objects documented here.
@@ -42,7 +42,7 @@ get.match(username = "username", password = "password", match_id = "match_id", v
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-getmatch(username = username, password = password, 14409)
+get.eventsusername = username, password = password, 14409)
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
 \keyword{Match}% __ONLY ONE__ keyword per line

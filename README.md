@@ -130,11 +130,11 @@ This function cleans the data in one line of code by running each of the functio
 
 `StatsBombData <- cleanlocations(StatsBombData)`
 
-Please note all location variables must be present in the data set. This function will not work with a subset of variables (location variables are missing).
+Please note all location variables must be present in the data set. This function will not work with a subset of variables (i.e. if any location variables are missing).
 
 #### To add the goalkeeper information from the freeze frame:
 
-`StatsBombData <- goalkeeper(StatsBombData)`
+`StatsBombData <- goalkeeperinfo(StatsBombData)`
 
 Please note that additional information is located under type.name == "Goal Keeper" and within the Freeze Frames.
 
