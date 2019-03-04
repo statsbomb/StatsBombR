@@ -15,7 +15,7 @@ MultiCompMatches <- function(username, password, competitionmatrix, version = "v
     raw.match.api <- GET(url = matches.url, authenticate(username, password))
     matches.string <- rawToChar(raw.match.api$content)
     matches <- fromJSON(matches.string, flatten = T)
-    if(remove.deleted.matches = TRUE){
+    if(remove.deleted.matches == TRUE){
       matches <- matches %>%
         filter(!match_status %in% c("deleted"))
     }

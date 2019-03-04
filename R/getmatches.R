@@ -9,7 +9,8 @@ get.matches <- function(username, password, season_id, competition_id, version =
   matches.string <- rawToChar(raw.match.api$content)
   Encoding(matches.string) <- "UTF-8"
   matches <- fromJSON(matches.string, flatten = T)
-  if(remove.deleted.matches = TRUE){
+  matches <- as_tibble(matches)
+  if(remove.deleted.matches == TRUE){
     matches <- matches %>%
       filter(!match_status %in% c("deleted"))
   }
