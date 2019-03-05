@@ -11,7 +11,7 @@ allevents <- function(username = username, password = password, matches, version
     #start time
     strt<-Sys.time()
     temp.matches <- foreach(i = matches, .combine=bind_rows, .multicombine = TRUE,
-                            .errorhandling = 'remove', .export = c("get.match"),
+                            .errorhandling = 'remove', .export = c("get.events"),
                             .packages = c("httr", "jsonlite", "dplyr")) %dopar%
                             {get.events(username = username, password = password,
                                        i, version, baseurl)}
