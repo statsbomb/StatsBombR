@@ -5,7 +5,7 @@ JoinPlayerNickName <- function(events, username, password){
   lineups <- lineups %>%
     mutate(player_nickname = ifelse(is.na(player_nickname), player_name, player_nickname))
   lineups <- lineups %>%
-    select(player_id, player_nickname)
+    select(player.id = player_id, player.nickname = player_nickname)
   events <- events %>%
     left_join(lineups)
   return(events)
