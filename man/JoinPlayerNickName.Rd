@@ -1,30 +1,25 @@
-\name{getmatch}
-\alias{getmatch}
+\name{JoinPlayerNickName}
+\alias{JoinPlayerNickName}
 \title{
-This function returns all events for the match specified in the arguments.}
+This function returns joins player nick names from the lineups API into the event data.}
 \description{
 For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb API and format it as a data frame (tibble) for use in R.}
 \usage{
-get.events(username = "username", password = "password", match_id = "match_id", version = "v1",
-                      baseurl = "https://data.statsbombservices.com/api/")
+JoinPlayerNickName(username = "username", password = "password", events)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{username}{Character string of your StatsBomb API username.
+\item{username}{Character string of your StatsBomb API username.
 }
 \item{password}{Character string of your StatsBomb API password.
 }
-\item{match_id}{Character string of the match_id for the match you wish to access.
+\item{events}{Data frame of the event data that you want to join nick names too. The match_ids must be present in the events data.
 }
 
-\item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1 and v2 are supported.
-}
-
-}
 \details{
 }
 \value{
-\item{df}{Returns a data frame with all events for the match specified.}}
+\item{df}{Returns a data frame with all events and nicknames joined.}}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -42,8 +37,8 @@ get.events(username = "username", password = "password", match_id = "match_id", 
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-get.events(username = username, password = password, 14409)
+JoinPlayerNickName(username = username, password = password, events)
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
+\keyword{Names}% __ONLY ONE__ keyword per line
 \keyword{Events}% __ONLY ONE__ keyword per line
