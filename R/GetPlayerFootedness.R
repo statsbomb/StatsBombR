@@ -8,12 +8,12 @@ GetPlayerFootedness <- function(Passes){
     filter(pass.body_part.name %in% c("Left Foot", "Right Foot"))
 
   Footedness <- Passes %>%
-    group_by(player.name, player.id) %>%
+    group_by(player.id) %>%
     summarise(RightFoot = sum(pass.body_part.name == "Right Foot")/n(),
               LeftFoot = sum(pass.body_part.name == "Left Foot")/n(),
               DominantFoot = ifelse(RightFoot >= LeftFoot, "Right Foot", "Left Foot"))
 
-  #Data frame returned with player name, player id, % right used, % left used, and Dominant Foot name.
+  #Data frame returned with player id, % right used, % left used, and Dominant Foot name.
   return(Footedness)
 
 }
