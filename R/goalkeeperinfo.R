@@ -37,12 +37,13 @@ goalkeeperinfo <- function(dataframe){
   ##calculate the new information
   df <- df %>%
     filter(teammate == "FALSE" & position.name == "Goalkeeper") %>%
-    mutate(location.x = str_extract(location, "[:digit:]+"),
-           location.y = str_extract(location, "[:blank:][:digit:]+")) %>%
-    mutate(location.x = as.numeric(location.x),
-           location.y = as.numeric(location.y)) %>%
+    mutate(location.x = (map(location, 1)),
+           location.y = (map(location, 2))) %>%
+    mutate(location.x = as.numeric(ifelse(location.x == "NULL", NA, location.x)),
+           location.y = as.numeric(ifelse(location.y == "NULL", NA, location.y))) %>%
     select(id, player.name.GK = player.name, player.id.GK = player.id,
            location.x.GK = location.x, location.y.GK = location.y)
 
   dataframe <- left_join(dataframe, df)
+  return(dataframe)
 }

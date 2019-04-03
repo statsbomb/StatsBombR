@@ -26,10 +26,10 @@ defensiveinfo <- function(dataframe){
       ff.df <- element %>%
         filter(teammate == "FALSE" & position.name != "Goalkeeper")
     ff.df <- ff.df %>%
-      mutate(location.x = str_extract(location, "[:digit:]+"),
-             location.y = str_extract(location, "[:blank:][:digit:]+")) %>%
-      mutate(location.x = as.numeric(location.x),
-             location.y = as.numeric(location.y))
+      mutate(location.x = (map(location, 1)),
+             location.y = (map(location, 2))) %>%
+      mutate(location.x = as.numeric(ifelse(location.x == "NULL", NA, location.x)),
+             location.y = as.numeric(ifelse(location.y == "NULL", NA, location.y)))
     if(dim(ff.df)[1] == 0){
       return(cbind(density = NA,
                    density.incone = NA,
