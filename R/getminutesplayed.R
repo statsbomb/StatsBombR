@@ -1,11 +1,11 @@
-get.minutesplayed <- function(eventscleaned){
-  Matches <- eventsclean %>%
+get.minutesplayed <- function(AllEvents){
+  Matches <- AllEvents %>%
     group_by(match_id) %>%
     filter(ElapsedTime == max(ElapsedTime)) %>%
     select(match_id, GameEnd = ElapsedTime) %>%
     dplyr::slice(1)
 
-  StartingXI <- eventsclean %>%
+  StartingXI <- AllEvents %>%
     filter(type.name == "Starting XI") %>%
     select(id, match_id, team.id, tactics.lineup)
 
@@ -47,7 +47,7 @@ get.minutesplayed <- function(eventscleaned){
   df <- df %>% select(player.id, match_id, team.id, TimeOn)
 
   #Get Substitutions ignore Player Off and Player On for now.
-  Subs <- eventsclean %>%
+  Subs <- AllEvents %>%
     filter(type.name == "Substitution") %>%
     select(match_id, ElapsedTime, Off = player.id, team.id, On = substitution.replacement.id) %>%
     tidyr::gather(Off, On, key = "Player", value = "OnOff") %>%
