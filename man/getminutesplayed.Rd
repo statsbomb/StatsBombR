@@ -9,7 +9,7 @@ get.minutesplayed(events)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{events}{Dataframe of event object gathered from the StatsBomb API.
+  \item{events}{Dataframe of event object gathered from the StatsBomb API, need the ElapsedTime variable from the formatelapsedtime.R function.
 }
 
 }
@@ -22,7 +22,7 @@ get.minutesplayed(events)
 %% ~put references to the literature/web site here ~
 }
 \author{
-Function was written by @FCRstats
+Function was originally written by @FCRstats but has since been replaced by StatsBomb
 }
 \note{
 %%  ~~further notes~~
@@ -35,6 +35,7 @@ Function was written by @FCRstats
 }
 \examples{
 events <- StatsBombFreeEvents()
+events <- formatelapsedtime(events)
 get.minutesplayed(events)
 \keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
 \keyword{Data}% __ONLY ONE__ keyword per line
