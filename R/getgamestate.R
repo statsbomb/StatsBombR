@@ -11,20 +11,37 @@ get.gamestate <- function(AllEvents){
     arrange(match_id, index) %>%
     mutate(Goal = ifelse(lag(shot.outcome.name) == "Goal" | lag(type.name) == "Own Goal For", 1, 0)) %>%
     mutate(Goal = ifelse(is.na(Goal), 0, Goal)) %>%
-    mutate(duration = ifelse(is.na(duration), 0.01, duration)) %>%
-    mutate(TimeOfGoal = ifelse(Goal == 1, lag(ElapsedTime) + lag(duration), 0)) %>%
-    group_by(match_id, team.name) %>%
-    mutate(Score = cumsum(Goal)) %>%
+    mutate(ScoringTeam = ifelse(lag(shot.outcome.name) == "Goal" | lag(type.name) == "Own Goal For", lag(team.name), NA)) %>%
+    mutate(ScoringTeam = ifelse(is.na(ScoringTeam), NA, ScoringTeam)) %>%
     ungroup() %>%
     group_by(match_id) %>%
+    tidyr::fill(ScoringTeam, .direction = ('down')) %>%
+    mutate(ScoringTeam = ifelse(is.na(ScoringTeam), "No Goal", ScoringTeam)) %>%
+    mutate(duration = ifelse(is.na(duration), 0.01, duration)) %>%
+    mutate(TimeOfGoal = ifelse(Goal == 1, lag(ElapsedTime) + lag(duration), 0)) %>%
+    group_by(match_id) %>%
     mutate(TotalScore = cumsum(Goal)) %>%
+    group_by(match_id, ScoringTeam) %>%
+    mutate(TeamScore = cumsum(Goal)) %>%
+    mutate(OpposingScore = TotalScore - TeamScore) %>%
+    mutate(GameState = ifelse(TeamScore == OpposingScore, "Drawing",
+                              ifelse(TeamScore > OpposingScore, "Winning",
+                                     ifelse(TeamScore < OpposingScore, "Losing", NA)))) %>%
+    mutate(WinningTeam = ifelse(GameState == "Winning" & team.name == ScoringTeam, team.name,
+                                ifelse(GameState == "Winning" & team.name != ScoringTeam, OpposingTeam,
+                                       ifelse(GameState == "Losing" & team.name == ScoringTeam, OpposingTeam,
+                                              ifelse(GameState == "Losing" & team.name != ScoringTeam, team.name, "Drawing"))))) %>%
+    mutate(Score = ifelse(team.name == ScoringTeam, TeamScore, OpposingScore)) %>%
     mutate(OpposingScore = TotalScore - Score) %>%
     mutate(GameState = ifelse(Score > OpposingScore, "Winning",
                               ifelse(Score < OpposingScore, "Losing", "Drawing"))) %>%
     mutate(OpposingGameState = ifelse(Score > OpposingScore, "Losing",
                                       ifelse(Score < OpposingScore, "Winning", "Drawing"))) %>%
     mutate(WinningTeam = ifelse(GameState == "Winning", team.name,
-                                ifelse(GameState == "Losing", OpposingTeam, "Drawing")))
+                                ifelse(GameState == "Losing", OpposingTeam, "Drawing"))) %>%
+    ungroup() %>%
+    select(everything(), Goal, TimeOfGoal, Score, TotalScore, OpposingScore, GameState, OpposingGameState, WinningTeam) %>%
+    select(-TeamScore, -ScoringTeam)
 
   ##Define the time at each state from the change in state.
   ##But we have to define the change in state from the scoring team.
@@ -93,5 +110,4 @@ get.gamestate <- function(AllEvents){
 
   return(list(AllEvents, GameStates))
 }
-
 
