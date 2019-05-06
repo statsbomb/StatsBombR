@@ -13,30 +13,9 @@ cleanlocations(dataframe)
 }
 
 }
-\details{
-}
 \value{
-\item{df}{Returns a data frame with all locations cleaned.}}
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{df}{Returns a data frame with all locations cleaned.}
 }
 \examples{
 cleanlocations(dataframe)
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
-\keyword{Location}% __ONLY ONE__ keyword per line
+}

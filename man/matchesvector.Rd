@@ -8,43 +8,16 @@ For use with the StatsBomb Data API credentials. This function is used to access
 matchesvector(username = "username", password = "password",
                       season_id = "season_id", competition_id = "competition_id")
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{username}{Character object of your StatsBomb API username.
-}
-\item{password}{Character object of your StatsBomb API password.
-}
-\item{season_id}{Character object of the season_id for the matches you wish to access.
-}
-
-\item{competition_id}{Character object of the competition_id for the match you wish to access.
-}
-
-}
-\details{
+  \item{username}{Character object of your StatsBomb API username.}
+  \item{password}{Character object of your StatsBomb API password.}
+  \item{season_id}{Character object of the season_id for the matches you wish to access.}
+  \item{competition_id}{Character object of the competition_id for the match you wish to access.}
 }
 \value{
-\item{vector}{Returns a vector with all matches for the specified season and competition.}}
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{vector}{Returns a vector with all matches for the specified season and competition.}
 }
 \examples{
-matchesvector(username = "username", password = "password",
+matches <- matchesvector(username = "username", password = "password",
                       season_id = "season_id", competition_id = "competition_id")
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Matches}% __ONLY ONE__ keyword per line
+}

@@ -11,7 +11,7 @@ allmatches(username = "username", password = "password",
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{username}{Character object of your StatsBomb API username.
+\item{username}{Character object of your StatsBomb API username.
 }
 \item{password}{Character object of your StatsBomb API password.
 }
@@ -26,29 +26,9 @@ allmatches(username = "username", password = "password",
 \item{cores}{Integer variable if you wish to run in parallel and not use all cores, please specify the number of cores.
 }
 }
-\details{
-}
 \value{
-\item{df}{Returns a data frame with all events for the matches specified.}}
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{df}{Returns a data frame with all events for the matches specified.}
 }
 \examples{
-allmatches(username = username, password = password, matches.epl$match_id)
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
+events <- allevents(username = username, password = password, matches.epl$match_id)
+}

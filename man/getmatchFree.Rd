@@ -7,35 +7,12 @@ This function easily scrapes the free events available from StatsBomb.com. Most 
 \usage{
 get.matchFree(Match)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-\item{Match}{Data frame of the match you wish to pull the events for.
-}
-\details{
+\item{Match}{Character string of the match id you wish to pull data for.}
 }
 \value{
-\item{df}{Returns a data frame with all events for this match available for free.}}
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{dataframe}{Returns a data frame with all events for this match available for free.}
 }
 \examples{
 get.matchFree(Match)
-
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
-\keyword{Free}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
+}

@@ -9,38 +9,14 @@ get.gamestate(dataframe)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{datafrane}{A dataframe with all events from a match.
-}
-
-}
-\details{
+  \item{dataframe}{A dataframe with all events from a match.}
 }
 \value{
-\item{list}{List of two data frames. The first element of the list is a data frame is the original dataframe passed into it, and the second element of the list is a data frame is the time each team has spent winning.}}
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{list}{List of two data frames. The first element of the list is the original dataframe with new variables created defining the game state and current score for each team, and the second element of the list is a data frame of the time each team has spent winning, losing and drawing.}
 }
 \examples{
   ##Returns a list
   temp <- get.gamestate(AllEvents)
   AllEvents <- temp[1][[1]]
   GameStates <- temp[2][[1]]
-
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
-\keyword{Score}% __ONLY ONE__ keyword per line
+}

@@ -1,4 +1,4 @@
-GetPlayerFootedness <- function(Passes){
+get.playerfootedness <- function(Passes){
   ##Get the player footedness from the passes they make.
   #We work under the assumption (tested assumption)
   #That player's use their dominant foot the majority of the time.

@@ -10,38 +10,14 @@ baseurl = "https://data.statsbombservices.com/api/")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{username}{Character object of your StatsBomb API username.
-}
-\item{password}{Character object of your StatsBomb API password.
-}
-\item{match_id}{Character object of the match_id for the match you wish to access.
-}
-\item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1 and v2 are supported.
-}
-}
-\details{
+  \item{username}{Character string of your StatsBomb API username.}
+  \item{password}{Character string of your StatsBomb API password.}
+  \item{match_id}{Character/integer string of the match_id for the match you wish to access.}
+  \item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1, v2, v3 and v4 are supported.}
 }
 \value{
-\item{df}{Returns a data frame with all events for the match specified.}}
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\item{df}{Returns a data frame with all events for the match specified.}
 }
 \examples{
 get.lineups(username = username, password = password, matches.epl$match_id[1])
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Lineups}% __ONLY ONE__ keyword per line
+}

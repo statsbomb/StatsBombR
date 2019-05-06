@@ -1,4 +1,4 @@
-getOpposingTeam <- function(events){
+get.opposingteam <- function(events){
   Teams <- events %>%
     group_by(match_id, team.name, team.id) %>%
     slice(1) %>%

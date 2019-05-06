@@ -16,7 +16,7 @@ get.positioncategory(events)
 \details{
 }
 \value{
-\item{df}{Returns a data frame with all of the player ids and position categories.}}
+\item{df}{Returns a data frame with all of the player ids and position categories.}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -36,10 +36,4 @@ get.positioncategory(events)
 \examples{
 events <- StatsBombFreeEvents()
 positions <- get.positioncategory(events)
-\keyword{StatsBomb}% use one of  RShowDoc("KEYWORDS")
-\keyword{Data}% __ONLY ONE__ keyword per line
-\keyword{Match}% __ONLY ONE__ keyword per line
-\keyword{Events}% __ONLY ONE__ keyword per line
-\keyword{Lineups}% __ONLY ONE__ keyword per line
-\keyword{Positions}% __ONLY ONE__ keyword per line
-
+}
