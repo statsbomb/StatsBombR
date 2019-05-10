@@ -1,10 +1,6 @@
-matchesvector <- function(username, password, season_id, competition_id){
+matchesvector <- function(username, password, season_id, competition_id, version = "v1", baseurl = "https://data.statsbombservices.com/api/"){
   competition_id <- competition_id
   season_id <- season_id
-  matches.url <- paste0("https://data.statsbombservices.com/api/v1/competitions/", competition_id,
-                        "/seasons/", season_id, "/matches")
-  raw.match.api <- GET(url = matches.url, authenticate(username, password))
-  matches.string <- rawToChar(raw.match.api$content)
-  matches <- fromJSON(matches.string, flatten = T)
+  matches <- get.matches(username, password, season_id, competition_id, version, baseurl)
   return(matches$match_id)
 }
