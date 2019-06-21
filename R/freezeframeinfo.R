@@ -20,7 +20,12 @@ freezeframeinfo <- function(dataframe){
     if(is.data.frame(x)){
       return(x)
     } else {
-      return(setNames(data.frame(matrix(ncol = ncol(myList[[1]]), nrow = 1)), names(myList[[1]])))
+      return(tibble(location = NA,
+                    teammate = NA,
+                    player.id = NA,
+                    player.name = NA,
+                    position.id = NA,
+                    position.name = NA))
     }
   }
 
