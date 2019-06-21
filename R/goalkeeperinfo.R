@@ -1,16 +1,26 @@
 goalkeeperinfo <- function(dataframe){
+  ##This function will not return any information on goalkeeper's when the shot.type.name = "Penalty"
+  ##This is because no Freeze Frame is actually recorded.
+  ##To get the goalkeeper's name on this penalty, look for the related_event of type.name = "Goal Keeper"
+  ##With a goalkeeper.type.name of "Penalty Saved" or "Penalty Conceded".
   Shots.FF <- dataframe %>%
     filter(type.name == "Shot") %>%
     dplyr::select(id, shot.freeze_frame)
   Shots.FF <- as_tibble(Shots.FF)
 
-  ##Trying a different method for the speed.
+  ##If the element of the list is a dataframe, return it.
+  ###If the element of the list is NULL, No Freeze Frame, Return, a freeze frame with all NAs.
   myList <- Shots.FF$shot.freeze_frame
   fixnull <- function(x) {
     if(is.data.frame(x)){
       return(x)
     } else {
-      return(setNames(data.frame(matrix(ncol = ncol(myList[[1]]), nrow = 1)), names(myList[[1]])))
+      return(tibble(location = NA,
+                    teammate = NA,
+                    player.id = NA,
+                    player.name = NA,
+                    position.id = NA,
+                    position.name = NA))
     }
   }
 
