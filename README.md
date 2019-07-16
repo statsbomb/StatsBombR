@@ -4,7 +4,7 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated February 19, 2019.
+#### Updated July 16, 2019.
 
 This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
@@ -18,19 +18,19 @@ This package offers a parallel option to most computationally expensive function
 
 This package depends on several other packages in order for all functions to run. Therefore, if you have problems with any functions or with installing the package, it is likely due to package dependencies.
 
-# Free Data 
+# Free Data
 
 ## Free Data Instructions:
 
-Welcome to the Free Data Offerings from StatsBomb Services. 
+Welcome to the Free Data Offerings from StatsBomb Services.
 
 This package is reading in the open access dat found on [https://github.com/statsbomb/open-data](https://github.com/statsbomb/open-data). Below you will find a list of the functions used to quickly read in all open data currently available. Check back often as new data is regularly added.
 
 ## Free Data Description and Privacy Policy
 
-StatsBomb are committed to sharing new data and research publicly to enhance understanding of the game of Football. We want to actively encourage new research and analysis at all levels. Therefore we have made certain leagues of StatsBomb Data freely available for public use for research projects and genuine interest in football analytics. 
+StatsBomb are committed to sharing new data and research publicly to enhance understanding of the game of Football. We want to actively encourage new research and analysis at all levels. Therefore we have made certain leagues of StatsBomb Data freely available for public use for research projects and genuine interest in football analytics.
 
-StatsBomb are hoping that by making data freely available, we will extend the wider football analytics community and attract new talent to the industry. We would like to collect some basic personal information about users of our data. By [giving us your email address](https://statsbomb.com/resource-centre/), it means we will let you know when we make more data, tutorials and research available. We will store the information in accordance with our Privacy Policy and the GDPR. 
+StatsBomb are hoping that by making data freely available, we will extend the wider football analytics community and attract new talent to the industry. We would like to collect some basic personal information about users of our data. By [giving us your email address](https://statsbomb.com/resource-centre/), it means we will let you know when we make more data, tutorials and research available. We will store the information in accordance with our Privacy Policy and the GDPR.
 
 Whilst we are keen to share data and facilitate research, we also urge you to be responsible with the data. Please register your details on https://www.statsbomb.com/resource-centre and read our [User Agreement](LICENSE.pdf) carefully.
 
@@ -55,15 +55,15 @@ or, for use in other functions, store it as a data frame object:
 
 #### To read in the free matches available:
 
-`Matches <- FreeMatches(Comp$competition_id)`
+`Matches <- FreeMatches(Comp)`
 
 #### To read in free events for a certain game:
 
-`get.matchFree(Matches[1,])` 
+`get.matchFree(Matches[1,])`
 
 It is important to note, that the argument here is the entire row returns from "FreeMatches", this is because there is information from each match observation that is needed in the `get.matchFree` function.
 
-# API Data 
+# API Data
 
 ## API Access Instructions:
 
@@ -84,7 +84,7 @@ It is important to note, that the argument here is the entire row returns from "
 3. Create a matrix of the competition and season ids: `competitionmatrix <- as.matrix(EuropeComps[,1:2])`
 4. Pull all of the matches: `Matches <- MultiCompMatches(username, password, competitionmatrix)`
 
-## To read in events for one game, simply run: 
+## To read in events for one game, simply run:
 
 1. `StatsBombData <- get.events(username, password, match_id)`
 
@@ -166,5 +166,3 @@ Description of these variables:
 - Please re-install frequently, as new functions and bug fixes will be added regularly.
 - As always, check out the Rdocumentation for each function (ex. `?StatsBombFreeEvents()`) for more specific description.
 - Please contact [support@statsbombservices.com](support@statsbombservices.com) with bugs and suggestions.
-
-
