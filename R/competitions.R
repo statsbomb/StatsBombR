@@ -1,4 +1,4 @@
-competitions <- function(username, password, version = "v1",
+competitions <- function(username, password, version = "v5",
                          baseurl = "https://data.statsbombservices.com/api/"){
   comp.url <- paste0(baseurl, version, "/competitions")
   raw.comp.api <- GET(url = comp.url, authenticate(username, password))
