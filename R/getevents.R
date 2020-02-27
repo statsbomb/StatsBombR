@@ -1,5 +1,5 @@
 get.events <- function(username, password,
-                      match_id, version = "v1",
+                      match_id, version = "v5",
                       baseurl = "https://data.statsbombservices.com/api/"){
   events <- tibble()
   Events.url <- paste0(baseurl, version, "/events/", match_id)
