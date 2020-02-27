@@ -1,5 +1,5 @@
 ##Multi Competition Events Function.
-MultiCompEvents <- function(username, password, competitionmatrix, version = "v1",
+MultiCompEvents <- function(username, password, competitionmatrix, version = "v5",
                             baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, cores = detectCores()){
   events <- tibble()
   for(i in 1:dim(competitionmatrix)[1]){
