@@ -9,7 +9,8 @@ cleanlocations <- function(dataframe) {
              pass.end_location.y = (map(pass.end_location, 2)),
              shot.end_location.x = (map(shot.end_location, 1)),
              shot.end_location.y = (map(shot.end_location, 2)),
-             shot.end_location.z = (map(shot.end_location, 3)))
+             shot.end_location.z = (map(shot.end_location, 3)),
+             shot_impact_height = (map(location, 3)))
     dataframe <- dataframe %>%
       mutate(location.x = as.numeric(ifelse(location.x == "NULL", NA, location.x)),
              location.y = as.numeric(ifelse(location.y == "NULL", NA, location.y)),
@@ -19,7 +20,9 @@ cleanlocations <- function(dataframe) {
              pass.end_location.y = as.numeric(ifelse(pass.end_location.y == "NULL", NA, pass.end_location.y)),
              shot.end_location.x = as.numeric(ifelse(shot.end_location.x == "NULL", NA, shot.end_location.x)),
              shot.end_location.y = as.numeric(ifelse(shot.end_location.y == "NULL", NA, shot.end_location.y)),
-             shot.end_location.z = as.numeric(ifelse(shot.end_location.z == "NULL", NA, shot.end_location.z)))
+             shot.end_location.z = as.numeric(ifelse(shot.end_location.z == "NULL", NA, shot.end_location.z)),
+             shot_impact_height = as.numeric(ifelse(shot_impact_height == "NULL", NA, shot_impact_height)))
+    
   } else {
     dataframe <- dataframe %>%
       mutate(location.x = (map(location, 1)),
@@ -28,7 +31,8 @@ cleanlocations <- function(dataframe) {
              pass.end_location.y = (map(pass.end_location, 2)),
              shot.end_location.x = (map(shot.end_location, 1)),
              shot.end_location.y = (map(shot.end_location, 2)),
-             shot.end_location.z = (map(shot.end_location, 3)))
+             shot.end_location.z = (map(shot.end_location, 3)),
+             shot_impact_height = (map(location, 3)))
     dataframe <- dataframe %>%
       mutate(location.x = as.numeric(ifelse(location.x == "NULL", NA, location.x)),
              location.y = as.numeric(ifelse(location.y == "NULL", NA, location.y)),
@@ -36,8 +40,9 @@ cleanlocations <- function(dataframe) {
              pass.end_location.y = as.numeric(ifelse(pass.end_location.y == "NULL", NA, pass.end_location.y)),
              shot.end_location.x = as.numeric(ifelse(shot.end_location.x == "NULL", NA, shot.end_location.x)),
              shot.end_location.y = as.numeric(ifelse(shot.end_location.y == "NULL", NA, shot.end_location.y)),
-             shot.end_location.z = as.numeric(ifelse(shot.end_location.z == "NULL", NA, shot.end_location.z)))
+             shot.end_location.z = as.numeric(ifelse(shot.end_location.z == "NULL", NA, shot.end_location.z)),
+             shot_impact_height = as.numeric(ifelse(shot_impact_height == "NULL", NA, shot_impact_height)))
   }
-
+  
   return(dataframe)
 }
