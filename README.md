@@ -12,7 +12,7 @@ This package offers a parallel option to most computationally expensive function
 
 # Installation Instructions:
 
-1. Please first make sure you are on version 3.6.2 or later before attempting to install
+1. Please first make sure you are on version 3.6.2 or later of R before attempting to install
 2. If not yet installed into R, run: `install.packages("devtools")`
 3. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")`
 4. Finally, `library(StatsBombR)`
