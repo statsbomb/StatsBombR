@@ -4,7 +4,7 @@
 
 #### Support: support@statsbombservices.com
 
-#### Updated July 16, 2019.
+#### Updated March 22, 2020.
 
 This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
@@ -12,9 +12,10 @@ This package offers a parallel option to most computationally expensive function
 
 # Installation Instructions:
 
-1. If not yet installed into R, run: `install.packages("devtools")`
-2. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")`
-3. Finally, `library(StatsBombR)`
+1. Please first make sure you are on version 3.6.2 or later before attempting to install
+2. If not yet installed into R, run: `install.packages("devtools")`
+3. Then, install this R package as: `devtools::install_github("statsbomb/StatsBombR")`
+4. Finally, `library(StatsBombR)`
 
 This package depends on several other packages in order for all functions to run. Therefore, if you have problems with any functions or with installing the package, it is likely due to package dependencies.
 
