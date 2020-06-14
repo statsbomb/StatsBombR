@@ -76,7 +76,7 @@ It is important to note, that the argument here is the entire row returns from "
 
 ## To read in the matches available in each competition, run:
 
-1. `matches <- get.matches(username, pasword, season_id, competition_id)`
+1. `matches <- get.matches(username, password, season_id, competition_id)`
 
 #### To read in all of the matches for various competitions.
 
