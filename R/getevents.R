@@ -8,7 +8,7 @@ get.events <- function(username, password,
   Encoding(events.string) <- "UTF-8"
   events <- fromJSON(events.string, flatten = T)
   if(length(events) == 0){
-    events <- tibble() #Some of the matches in the premier league are not available yet.
+    events <- tibble()
   } else {
     events <- events %>% mutate(match_id = match_id)
   }
