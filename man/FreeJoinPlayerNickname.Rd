@@ -1,7 +1,7 @@
-\name{JoinPlayerNickName}
-\alias{JoinPlayerNickName}
+\name{FreeJoinPlayerNickname}
+\alias{FreeJoinPlayerNickname}
 \title{
-This function returns and joins player nick names from the free lineups API into the event data.}
+This function returns and joins player nicknames from the free lineups API into the event data.}
 \description{
 This function joins player nicknames for players in the free matches available from StatsBomb.com.}
 \usage{
