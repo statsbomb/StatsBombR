@@ -12,7 +12,7 @@ player_season(username, password, competition_id, season_id)
   \item{username}{Character object of your StatsBomb API username.}
   \item{password}{Character object of your StatsBomb API password.}
 \item{competition_id}{The ID of the competition you wish to pull data for. Can be either a vector or just insert the number directly.}
-\item{competition_id}{The ID of the competition you wish to pull data for. Can be either a vector or just insert the number directly.}
+\item{season_id}{The ID of the season you wish to pull data for. Can be either a vector or just insert the number directly.}
 }
 
 \value{
