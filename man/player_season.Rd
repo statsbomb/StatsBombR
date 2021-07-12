@@ -19,5 +19,5 @@ player_season(username, password, competition_id, season_id)
 \item{df}{Returns a data frame with all the player metrics for the competitions and seasons specified.}
 }
 \examples{
-pl2021_player_matches <- player_season(username = username, password = password, 2, 90)
+pl2021_player_season <- player_season(username = username, password = password, 2, 90)
 }
