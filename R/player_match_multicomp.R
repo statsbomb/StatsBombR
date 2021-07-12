@@ -2,7 +2,7 @@ player_match_multicomp = function (username, password, competitionmatrix, versio
           baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, 
           cores = detectCores()) 
 {
-  player_match_multicomp <- tibble()
+  player_matches_multicomp <- tibble()
   for (i in 1:dim(competitionmatrix)[1]) {
     temp.matches <- tibble()
     competition_id <- as.numeric(competitionmatrix[i, 1])
@@ -13,8 +13,8 @@ player_match_multicomp = function (username, password, competitionmatrix, versio
                               version, baseurl, parallel, cores)
     temp.matches <- temp.matches %>% mutate(competition_id = competition_id, 
                                             season_id = season_id)
-    player_match_multicomp <- bind_rows(player_match_multicomp, temp.matches)
+    player_matches_multicomp <- bind_rows(player_matches_multicomp, temp.matches)
   }
-  player_match_multicomp <- player_match_multicomp %>% dplyr::select(-num_range("shot", 1:20))
-  return(player_match_multicomp)
+  player_matches_multicomp <- player_matches_multicomp %>% dplyr::select(-num_range("shot", 1:20))
+  return(player_matches_multicomp)
 }
