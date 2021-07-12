@@ -13,7 +13,7 @@ MultiCompEvents(username = "username", password = "password",
   \item{username}{Character object of your StatsBomb API username.}
   \item{password}{Character object of your StatsBomb API password.}
   \item{competitionmatrix}{Matrix of the competition and season ids you want the events for. Competition ID in the first column and Season ID in the second column.}
-  \item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1, v2, v3 and v4 are supported.}
+  \item{version}{Character string of the version of the StatsBomb API you wish to access. Currently version v1, v2, v3, v4 and v5 are supported.}
 }
 \value{
 \item{df}{Returns a data frame with all events for the events and seasons specified.}
