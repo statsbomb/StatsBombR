@@ -13,9 +13,9 @@ allevents_360 = function (username = username, password = password, matches,
     strt <- Sys.time()
     temp.matches <- foreach(i = matches, .combine = bind_rows,
                             .multicombine = TRUE, .errorhandling = "remove",
-                            .export = c("get.events_360"), .packages = c("httr",
+                            .export = c("get_events_360"), .packages = c("httr",
                                                                          "jsonlite", "dplyr")) %dopar% {
-                                                                           get.events_360(username = username, password = password,
+                                                                           get_events_360(username = username, password = password,
                                                                                           i, version, baseurl)
                                                                          }
     print(Sys.time() - strt)
