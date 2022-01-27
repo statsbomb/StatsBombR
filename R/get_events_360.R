@@ -1,6 +1,6 @@
 get_events_360 <- function(username, password,
                            match_id, version = "v5",
-                           baseurl = "https://data.statsbombservices.com/api/"){
+                           baseurl = "https://data.statsbomb.com/api/"){
   events <- tibble()
   Events.url <- paste0(baseurl, version, "/360-frames/", match_id)
   raw.events.api <- GET(url = Events.url, authenticate(username, password))
