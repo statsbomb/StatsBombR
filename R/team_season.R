@@ -1,4 +1,4 @@
-team_season = function (username, password, competition_id, season_id, version = "v5", baseurl = "https://data.statsbombservices.com/api/") 
+team_season = function (username, password, competition_id, season_id, version = "v5", baseurl = "https://data.statsbomb.com/api/") 
 {
   team_season <- tibble()
   team_season.url <- paste0(baseurl, version,"/competitions/",competition_id, "/seasons/", season_id, "/team-stats")
