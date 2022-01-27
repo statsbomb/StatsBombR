@@ -1,6 +1,6 @@
 ##Multi Competition Events Function.
 MultiCompEvents <- function(username, password, competitionmatrix, version = "v6",
-                            baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, cores = detectCores()){
+                            baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, cores = detectCores()){
   events <- tibble()
   for(i in 1:dim(competitionmatrix)[1]){
     temp.matches <- tibble()
