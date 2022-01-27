@@ -1,5 +1,5 @@
 team_season_multicomp = function (username, password, competitionmatrix, version = "v6", 
-          baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, 
+          baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, 
           cores = detectCores()) 
 {
   events <- tibble()
