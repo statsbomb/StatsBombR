@@ -1,5 +1,5 @@
 allevents <- function(username = username, password = password, matches, version = "v6",
-                       baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, cores = detectCores()){
+                       baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, cores = detectCores()){
   if(parallel == T){
     if(cores == detectCores()){
       cl <- makeCluster(detectCores())
