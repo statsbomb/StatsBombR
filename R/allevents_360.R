@@ -1,5 +1,5 @@
 allevents_360 = function (username = username, password = password, matches,
-                          version = "v5", baseurl = "https://data.statsbombservices.com/api/",
+                          version = "v5", baseurl = "https://data.statsbomb.com/api/",
                           parallel = TRUE, cores = detectCores())
 {
   if (parallel == T) {
