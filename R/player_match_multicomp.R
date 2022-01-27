@@ -1,5 +1,5 @@
 player_match_multicomp = function (username, password, competitionmatrix, version = "v5", 
-          baseurl = "https://data.statsbombservices.com/api/", parallel = TRUE, 
+          baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, 
           cores = detectCores()) 
 {
   player_matches_multicomp <- tibble()
