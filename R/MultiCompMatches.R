@@ -1,6 +1,6 @@
 ##Multi Competition Matches Function.
 MultiCompMatches <- function(username, password, competitionmatrix, version = "v6",
-                             baseurl = "https://data.statsbombservices.com/api/",
+                             baseurl = "https://data.statsbomb.com/api/",
                              remove.deleted.matches = TRUE){
   strt<-Sys.time()
   cl <- makeCluster(detectCores())
