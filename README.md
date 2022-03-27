@@ -13,7 +13,7 @@ This package offers a parallel option to most computationally expensive function
 # Installation Instructions:
 
 1. Please first make sure you are on version 3.6.2 or later of R before attempting to install
-2. If not yet installed into R, run: `install.packages("devtools")`
+2. If not yet installed into R, run: `install.packages("devtools")` and `install.packages("tidyverse")`
 3. Also run: 
 `install.packages("remotes")` and then
 `remotes::install_version("SDMTools", "1.1-221")`
