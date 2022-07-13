@@ -45,7 +45,7 @@ If you publish, share or distribute any research, analysis or insights based on 
 
 #### To read in all free events available:
 
-`StatsBombData <- StatsBombFreeEvents()`
+`StatsBombData <- free_allevents()`
 
 ##### To read in all of the free competitions we offer simply run:
 
