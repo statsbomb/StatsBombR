@@ -1,4 +1,4 @@
-# StatsBombR
+# StatsBombR <img src="https://github.com/statsbomb/logos/blob/main/StatsBomb_R_Hex.svg" align="right" height="139" />
 
 #### By: StatsBomb
 
