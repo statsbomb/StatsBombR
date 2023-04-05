@@ -7,7 +7,7 @@ player_season_multicomp = function (username, password, competitionmatrix, versi
     player_seasons <- tibble()
     competition_id <- as.numeric(competitionmatrix[i, 1])
     season_id <- as.numeric(competitionmatrix[i, 2])
-    player_seasons = player_season(username, password, competition_id, season_id)
+    player_seasons = player_season(username, password, competition_id, season_id, version)
     events <- bind_rows(events, player_seasons)
   }
   return(events)
