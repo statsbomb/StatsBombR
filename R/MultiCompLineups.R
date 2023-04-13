@@ -1,4 +1,4 @@
-MultiCompLineups = function (username, password, competitionmatrix, version = "v6", 
+MultiCompLineups = function (username, password, competitionmatrix, version = "v8", 
           baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, 
           cores = detectCores()) 
 {
