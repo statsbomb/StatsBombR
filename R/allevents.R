@@ -1,4 +1,4 @@
-allevents <- function(username = username, password = password, matches, version = "v6",
+allevents <- function(username = username, password = password, matches, version = "v8",
                        baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, cores = detectCores()){
   if(parallel == T){
     if(cores == detectCores()){
@@ -24,7 +24,7 @@ allevents <- function(username = username, password = password, matches, version
     temp.matches <- tibble()
     for(i in matches){
       match_id <- paste0(i)
-      Events.url <- paste0("https://data.statsbombservices.com/api/v1/events/", match_id)
+      Events.url <- paste0("https://data.statsbombservices.com/api/v8/events/", match_id)
       raw.events.api <- GET(url = Events.url, authenticate(username, password))
       events.string <- rawToChar(raw.events.api$content)
       Encoding(events.string) <- "UTF-8"
