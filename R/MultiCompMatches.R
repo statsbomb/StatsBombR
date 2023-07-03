@@ -1,5 +1,5 @@
 ##Multi Competition Matches Function.
-MultiCompMatches <- function(username, password, competitionmatrix, version = "v8",
+MultiCompMatches <- function(username, password, competitionmatrix, version = "v5",
                              baseurl = "https://data.statsbomb.com/api/",
                              remove.deleted.matches = TRUE){
   strt<-Sys.time()
