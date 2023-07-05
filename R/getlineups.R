@@ -1,4 +1,4 @@
-get.lineups <- function(username, password, match_id, version = "v5",
+get.lineups <- function(username, password, match_id, version = "v4",
                         baseurl = "https://data.statsbomb.com/api/"){
   events <- tibble()
   Events.url <- paste0(baseurl, version, "/lineups/", match_id)
