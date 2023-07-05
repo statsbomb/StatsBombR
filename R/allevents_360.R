@@ -26,7 +26,7 @@ allevents_360 = function (username = username, password = password, matches,
     temp.matches <- tibble()
     for (i in matches) {
       match_id <- paste0(i)
-      Events.url <- paste0("https://data.statsbombservices.com/api/v2/360-frames/",
+      Events.url <- paste0("https://data.statsbomb.com/api/v2/360-frames/",
                            match_id)
       raw.events.api <- GET(url = Events.url, authenticate(username,
                                                            password))
