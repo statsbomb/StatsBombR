@@ -1,4 +1,4 @@
-alllineups <- function(username = username, password = password, matchesvector, parallel = T, version = "v5",
+alllineups <- function(username = username, password = password, matchesvector, parallel = T, version = "v4",
                        baseurl = "https://data.statsbomb.com/api/"){
   if(parallel == T){
     cl <- makeCluster(detectCores())
