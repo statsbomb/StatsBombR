@@ -1,4 +1,4 @@
-get.matches <- function(username, password, season_id, competition_id, version = "v5",
+get.matches <- function(username, password, season_id, competition_id, version = "v6",
                         baseurl = "https://data.statsbomb.com/api/",
                         remove.deleted.matches = TRUE){
   competition_id <- competition_id
