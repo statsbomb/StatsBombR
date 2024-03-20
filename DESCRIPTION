@@ -8,7 +8,6 @@ Description: This package is used to pull StatsBomb data directly from the API. 
 License: 3.5.0
 Encoding: UTF-8
 LazyData: true
-Remotes: git::https://github.com/cran/SDMTools.git
 Depends:
   dplyr (>= 0.3), 
   stringi (>= 0.1),
