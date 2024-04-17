@@ -1,0 +1,2 @@
+StatsBombData <- allclean(StatsBombData)
+StatsBombData <- cleanlocations(StatsBombData)
