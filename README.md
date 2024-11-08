@@ -1,4 +1,4 @@
-# StatsBombR <img src="https://github.com/statsbomb/logos/blob/main/StatsBomb_R_Hex.svg" align="right" height="139" />
+# StatsBombR <picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/statsbomb/logos/blob/main/HudlStatsbomb_R_Hex_Dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://github.com/statsbomb/logos/blob/main/HudlStatsbomb_R_Hex.svg"><img alt="StatsBombPython_Lock" src="https://github.com/statsbomb/logos/blob/main/HudlStatsbomb_R_Hex.svg" align="right" height="139"></picture>
 
 #### By: StatsBomb
 
