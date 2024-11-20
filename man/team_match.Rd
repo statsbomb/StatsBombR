@@ -5,7 +5,7 @@ This function returns metrics from the IQ API for all teams in a given match.}
 \description{
 For use with the StatsBomb Data API credentials. This function is used to access the JSON file from the StatsBomb IQ API and format it as a data frame (tibble) for use in R. Currently, parallel is only supported for windows.}
 \usage{
-team_season(username, password, match_id)
+team_match(username, password, match_id)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
