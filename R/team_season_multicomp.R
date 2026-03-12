@@ -1,4 +1,4 @@
-team_season_multicomp = function (username, password, competitionmatrix, version = "v6", 
+team_season_multicomp = function (username, password, competitionmatrix, version = "v3", 
           baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, 
           cores = detectCores()) 
 {
