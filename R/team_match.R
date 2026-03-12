@@ -1,4 +1,4 @@
-team_match = function (username, password, match_id, version = "v1", baseurl = "https://data.statsbomb.com/api/") 
+team_match = function (username, password, match_id, version = "v2", baseurl = "https://data.statsbomb.com/api/") 
 {
   team_match <- tibble()
   team_match.url <- paste0(baseurl, version,"/matches/",  match_id,"/team-stats")
