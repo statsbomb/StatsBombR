@@ -2,7 +2,7 @@
 
 #### By: StatsBomb
 
-#### Support: support@statsbombservices.com
+#### Support: https://support.hudl.com/s/contactsupport?language=en_US
 
 #### Updated March 22, 2020.
 
