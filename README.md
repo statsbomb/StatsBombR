@@ -4,7 +4,7 @@
 
 #### Support: https://support.hudl.com/s/contactsupport?language=en_US
 
-#### Updated March 22, 2020.
+#### Updated April 20th, 2026.
 
 This repository is an R package to easily stream StatsBomb data into R using your log in credentials for the API or free data from our GitHub page. **API access is for paying customers only**
 
@@ -166,4 +166,4 @@ Description of these variables:
 - Some of the cleaning functions above depend on variables created in the functions presented before them. In order to be safe, please clean your data in the order that is presented in this document.
 - Please re-install frequently, as new functions and bug fixes will be added regularly.
 - As always, check out the Rdocumentation for each function (ex. `?StatsBombFreeEvents()`) for more specific description.
-- Please contact [support@statsbombservices.com](support@statsbombservices.com) with bugs and suggestions.
+- Please contact [Hudl Support](https://support.hudl.com/s/contactsupport?language=en_US) with bugs and suggestions.
