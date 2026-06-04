@@ -1,4 +1,4 @@
-allevents <- function(username = username, password = password, matches, version = "v19",
+allevents <- function(username = username, password = password, matches, version = "v10",
                        baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, cores = detectCores()){
   if(parallel == T){
     if(cores == detectCores()){
