@@ -1,4 +1,4 @@
-player_match_multicomp = function (username, password, competitionmatrix, version = "v6", 
+player_match_multicomp = function (username, password, competitionmatrix, version = "v7", 
           baseurl = "https://data.statsbomb.com/api/", parallel = TRUE, 
           cores = detectCores()) 
 {
