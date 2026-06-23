@@ -1,5 +1,5 @@
 team_all_matches = function (username = username, password = password, matches, 
-                               version = "v1", baseurl = "https://data.statsbomb.com/api/", 
+                               version = "v3", baseurl = "https://data.statsbomb.com/api/", 
                                parallel = TRUE, cores = detectCores()) 
 {
   if (parallel == T) {
