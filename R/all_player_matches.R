@@ -1,5 +1,5 @@
 all_player_matches = function (username = username, password = password, matchesvector, 
-                               parallel = T, version = "v5", baseurl = "https://data.statsbomb.com/api/") 
+                               parallel = T, version = "v7", baseurl = "https://data.statsbomb.com/api/") 
 {
   if (parallel == T) {
     cl <- makeCluster(detectCores())
